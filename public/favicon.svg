@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="88.900246mm"
+   height="118.30435mm"
+   viewBox="0 0 88.900246 118.30435"
+   version="1.1"
+   id="svg5"
+   inkscape:export-filename="arrow.svg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   sodipodi:docname="/tmp/ink_ext_XXXXXX.svgWQE2S1"
+   xml:space="preserve"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.38796647"
+     inkscape:cx="-114.70063"
+     inkscape:cy="719.13431"
+     inkscape:window-width="1886"
+     inkscape:window-height="1029"
+     inkscape:window-x="17"
+     inkscape:window-y="44"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" /><defs
+     id="defs2"><linearGradient
+       id="linearGradient3052"
+       inkscape:swatch="solid"><stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop3050" /></linearGradient><style
+       id="style1363"><![CDATA[
+.class1 { 
+  /*stroke-linejoin:round;*/
+  /*stroke-width:0;*/
+}
+]]></style></defs><g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-57.437528,-112.48269)"><path
+       id="path2290"
+       style="display:inline;fill:#58212d;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linejoin:round"
+       d="m 60.42455,115.7167 c 2.473641,-6.82848 34.367717,-0.25305 41.26669,-0.20647 12.06071,0.0814 34.82947,-7.03363 42.2566,0.27468 7.75046,7.62648 -5.83955,46.95687 -5.73126,55.67825 0.11261,9.06893 12.64528,43.34677 5.89429,56.50138 -2.72187,5.30368 -30.63215,0.42224 -42.90497,0.26029 -13.784381,-0.18189 -37.030883,6.03637 -41.355852,-0.27211 -7.9146,-11.54439 6.208346,-42.07102 5.861949,-56.74667 -0.258642,-10.95776 -12.68397,-35.07128 -5.287447,-55.48935 z"
+       sodipodi:nodetypes="sssssssss"
+       inkscape:export-filename="favicon.svg"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" /><path
+       id="rect2224"
+       style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0;stroke-linejoin:round"
+       d="m 64.080723,120.64752 c 2.255518,-6.22637 31.337207,-0.23075 37.627837,-0.18827 10.99721,0.0743 31.75824,-6.41342 38.53045,0.25046 7.06704,6.95398 -5.32462,42.81626 -5.22589,50.76859 0.10269,8.26924 11.53024,39.5245 5.37454,51.51915 -2.48185,4.83601 -27.93103,0.385 -39.12164,0.23734 -12.568891,-0.16585 -33.765542,5.50409 -37.70914,-0.24812 -7.216699,-10.52641 5.660902,-38.36124 5.34505,-51.7428 -0.235837,-9.99153 -11.565512,-31.97873 -4.821207,-50.59635 z"
+       sodipodi:nodetypes="sssssssss" /><path
+       id="path2298"
+       style="display:inline;fill:#58212d;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linejoin:round"
+       d="m 68.617554,126.766 c 1.984856,-5.4792 27.576742,-0.20306 33.112496,-0.16567 9.67755,0.0653 27.94725,-5.64381 33.9068,0.22041 6.21899,6.11949 -4.68567,37.6783 -4.59878,44.67635 0.0904,7.27693 10.14661,34.78156 4.72959,45.33686 -2.18403,4.25569 -24.57931,0.3388 -34.42704,0.20885 -11.060629,-0.14595 -29.713682,4.8436 -33.184048,-0.21835 -6.350695,-9.26323 4.981595,-33.75789 4.703644,-45.53366 -0.207537,-8.79254 -10.177651,-28.14128 -4.242662,-44.52479 z"
+       sodipodi:nodetypes="sssssssss" /><rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-linejoin:round;stroke-opacity:0.999279"
+       id="rect5302-7-5"
+       width="11.876973"
+       height="11.876973"
+       x="186.53224"
+       y="30.388119"
+       transform="matrix(0.65252313,0.75776881,-0.65252313,0.75776881,0,0)" /></g></svg>
