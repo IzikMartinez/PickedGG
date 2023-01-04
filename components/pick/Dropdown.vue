@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div class="btn" @click="visibleFlag = !visibleFlag" >{{text}}</div>
+    <div draggable="true" @dragstart="onDrag">
+        <div :class="btnstyle" @click="visibleFlag = !visibleFlag" >{{text}}</div>
         <li :class="style" v-for="classtype in classTypes">
             <ul @click="onClick(classtype)">{{ classtype }}</ul>
         </li>
@@ -20,12 +20,17 @@ const emit = defineEmits<{
 const text = ref(props.classTypes.at(0))
 const visibleFlag = ref(false)
 const style = computed(()=> visibleFlag.value ? "list-vis" : "list-invis")
+const btnstyle = computed( ()=> visibleFlag.value ? "btn-active" : "btn")
 const background = "bg-darkteal"
 
 function onClick(classtype: string) {
     emit('heroType', classtype)
     text.value = classtype
     visibleFlag.value = false
+}
+
+function onDrag() {
+    console.log(props.classTypes)
 }
 </script>
 
@@ -34,10 +39,20 @@ function onClick(classtype: string) {
         @apply 
         flex flex-col
         w-32 h-12 text-white text-2xl bg-darkteal
+        rounded-md
         justify-center items-center
         cursor-pointer
         font-display
-
+    }
+    .btn-active {
+        @apply
+        flex flex-col
+        w-32 h-12 text-white text-2xl bg-teal-600
+        rounded-none
+        justify-center items-center
+        cursor-pointer
+        font-display
+        transition-all duration-75 ease-in
     }
     .list-invis {
         @apply 
