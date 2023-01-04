@@ -1,5 +1,5 @@
 <template>
     <NuxtLink to="/">
-        <span class="bg-darkteal rounded-md flex font-display h-16 text-white text-center transition-all ease-linear text-3xl w-20 duration-100 justify-center items-center hover:(bg-purple-800 rounded-2xl) ">NEXT</span>
+        <span class="bg-darkteal rounded-md flex font-display h-16 text-white text-center transition-all ease-linear text-4xl w-52 duration-100 justify-center items-center hover:(bg-sky-400 rounded-3xl) ">NEXT ROUND</span>
     </NuxtLink>
 </template>

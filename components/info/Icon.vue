@@ -15,7 +15,7 @@ const props = defineProps({
   toolTip: String
 })
 
-const pick_pack_data = computed( ()=>  props.picksPacks==="pick" ? (store.getPickIndex % 14)+1 : store.getRoundIndex)
+const pick_pack_data = computed( ()=>  props.picksPacks==="pick" ? (store.getPickIndex % 14)+1 : store.getRoundIndex+1)
 const pick_pack_body = computed( ()=> props.picksPacks==="pick" ? "side-btn-pick group" : "side-btn-pack group")
 
 

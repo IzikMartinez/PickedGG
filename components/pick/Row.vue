@@ -1,7 +1,9 @@
 <template>
     <div class="flex flex-row items-center">
-        <PickDropdown :class-types="heroTypes" @hero-type="(classtype)=> heroType = classtype"/>
-        <PickArray :picks="picks" />
+        <PickDropdown :class-types="heroTypes" @hero-type="(classtype)=> heroType = classtype" draggable="true"/>
+        <div class="flex flex-row items-center overflow-auto">
+            <PickArray :picks="picks" />
+        </div>
     </div>
 </template>
 

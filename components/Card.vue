@@ -12,29 +12,35 @@
 import {card} from 'composables/types/card';
 
 const picks = usePickStore()
-const props = defineProps({
-  cardProps: {},
-  pickedFlag: Boolean
-})
-const cardProps = computed( ()=> props.cardProps as card)
+const props = defineProps<{
+  cardProps: card
+  pickedFlag: boolean
+}>()
+const emit = defineEmits<{
+  (e: 'cardClicked', type: number): void
+}>()
 
 //const fetchArt = await useFetchArt(cardProps.value.card_id)
-const pickedFlag = ref(false)
 const cardClass = useCardClass() 
 const artPath = ref("")
 
 function addPick() {
-  if (props.pickedFlag === false) {
-    picks.addPick(cardProps.value)
+  if (props.pickedFlag === true) {
+    console.log("Cannot add ", props.cardProps.card_name, " As it has already been picked.")
   }
+  else {
+    picks.addPick(props.cardProps)
+    console.log("Added ", props.cardProps.card_name, " (", props.cardProps.pitch, ")")
+  }
+  emit('cardClicked', props.cardProps.card_in_pack as number)
 }
 
 onMounted(()=> {
-  const getArt = useGetArt(cardProps.value.card_id).then( val => artPath.value = val as string)
+  const getArt = useGetArt(props.cardProps.card_id).then( val => artPath.value = val as string)
 })
 
 onUpdated( ()=> {
-  const getArt = useGetArt(cardProps.value.card_id).then( val => artPath.value = val as string)
+  const getArt = useGetArt(props.cardProps.card_id).then( val => artPath.value = val as string)
 })
 </script>
 

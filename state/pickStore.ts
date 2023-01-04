@@ -13,7 +13,7 @@ export const usePickStore = defineStore('main', {
         getPicks: (state) => state.picks,
         getPickIndex: (state) => state.pickIndex,
         getInversePickIndex: (state) => state.packSize - state.pickIndex%state.packSize,
-        getRoundIndex: (state) => state.roundIndex,
+        getRoundIndex: (state) => state.roundIndex-1,
     },
     actions: {
         addPick(payload: card ) { this.picks.push(payload) },

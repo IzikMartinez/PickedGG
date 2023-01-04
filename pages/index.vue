@@ -11,7 +11,7 @@
         <div class="flex flex-col items-center ">
           <DraftInfo ref="infoRef"/>
           <span :class="cardBoxClass">
-            <CardBox @clicked-card="onCardEvent('clicked')" ref="cardboxRef" />
+            <CardBox @cardbox-clicked="onCardEvent('clicked')" ref="cardboxRef" />
           </span>
         </div>
       </span>
@@ -64,7 +64,7 @@ async function onCardEvent(eventType: string) {
   if(eventType === "timeout"){
     cardboxRef.value?.timeoutPick()
   } else if (eventType === "clicked") {
-    console.log("caught click")
+    //console.log("caught click")
   }
   await styles.screenWipe(store.getRoundIndex % 2 === 0 ? true : false)
 }

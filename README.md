@@ -1,42 +1,10 @@
-# Nuxt 3 Minimal Starter
+# What is picked?
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Picked is a card picking simulator designed to simulat the limited format of the card game Flesh and Blood.
 
-## Setup
+## How do I use it?
 
-Make sure to install the dependencies:
+You are given a selection of cards, from which you pick one card. You cards you do not pick are 'passed' to the player sitting next to your left (in this case, the computer).
+You are simultaneously passed the cards from the player sitting to your right. From these passed cards, you will pick a single card and pass those cards you did not pick. The game continues the process of pick-pass until all cards have been picked. This concludes a 'round' of drafting. At this point, you will review the cards you have picked, taking note of how your draft is going before progressing to the next round. After three rounds, the draft is concluded, and you will build a 30-card deck from the pool of cards which you have picked.
 
-```bash
-# yarn
-yarn install
 
-# npm
-npm install
-
-# pnpm
-pnpm install --shamefully-hoist
-```
-
-## Development Server
-
-Start the development server on http://localhost:3000
-
-```bash
-npm run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
