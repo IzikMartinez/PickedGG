@@ -9,6 +9,7 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({layout: "picklayout"})
 
 const styles = useStyleStore();
 const store = usePickStore();

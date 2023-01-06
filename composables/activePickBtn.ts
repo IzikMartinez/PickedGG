@@ -1,0 +1,1 @@
+export const useActiveBtn = ()=> useState('activeBtn', ()=> 'all')

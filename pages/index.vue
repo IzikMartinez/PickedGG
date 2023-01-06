@@ -30,6 +30,8 @@ const store = usePickStore()
 const styles = useStyleStore()
 const timerStore = useTimerStore()
 
+definePageMeta({ layout: 'default'})
+
 const {data: cardData, pending: isLoading, error: err} = await useAsyncData(async ()=> {
     const {data } = await supabase
     .from('spells')

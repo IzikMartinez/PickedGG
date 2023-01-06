@@ -17,6 +17,6 @@ const props = defineProps<{
 <style scoped>
 .list{
     @apply
-    flex flex-row 
+    flex lg:flex-row md:flex-col flex-wrap w-408 
 }
 </style>

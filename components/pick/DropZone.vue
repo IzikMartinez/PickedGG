@@ -3,7 +3,6 @@
     @dragenter="toggleActive" 
     @dragleave="toggleActive"
     @dragover.prevent
-    @drop="onDrop"
     >
     <span :class="btnstyle"></span>
     </div>

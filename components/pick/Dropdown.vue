@@ -1,5 +1,5 @@
 <template>
-    <div draggable="true" @dragstart="onDrag">
+    <div draggable="true" @dragstart="onDrag" class="flex absolute top-0">
         <div :class="btnstyle" @click="visibleFlag = !visibleFlag" >{{text}}</div>
         <li :class="style" v-for="classtype in classTypes">
             <ul @click="onClick(classtype)">{{ classtype }}</ul>
@@ -16,6 +16,10 @@ const props = defineProps<{
 const emit = defineEmits<{
     (e: 'heroType', type: string): void
 }>()
+
+
+const heroTypes = ["all", "draconic, iyslander"]
+const heroSubtypes = ["ninja", "illusionist", "ice", "wizard", "elemental"]
 
 const text = ref(props.classTypes.at(0))
 const visibleFlag = ref(false)
@@ -56,7 +60,7 @@ function onDrag() {
     }
     .list-invis {
         @apply 
-        flex flex-col
+        flex flex-col 
         w-32 h-12 bg-cyan-900 text-white text-2xl 
         items-center justify-center
         font-display
