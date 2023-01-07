@@ -1,6 +1,6 @@
 <template>
-    <div class="flex md:flex-row sm:flex-col w-screen items-center justify-center">
-        <div class="flex md:flex-row sm:flex-col items-center">
+    <div class="flex md:flex-row sm:flex-col w-screen justify-center">
+        <div class="flex md:flex-row sm:flex-col ">
             <PickArray :picks="picks" />
         </div>
     </div>

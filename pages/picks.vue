@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-wrap md:flex-row sm:flex-col w-screen overflow-auto overflow-x-hidden items-center justify-center">
+    <div class="flex flex-wrap md:flex-row sm:flex-col w-screen overflow-auto overflow-x-hidden  justify-center">
         <PickRow draggable="true"/>
     </div>
 
