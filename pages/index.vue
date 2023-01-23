@@ -43,8 +43,11 @@ const {data: cardData, pending: isLoading, error: err} = await useAsyncData(asyn
 const cardDataStore = useState('card-data', ()=> cardData)
 
 store.$subscribe( (mutation, state)=> {
-  if(state.pickIndex / state.packSize === 1)  {
-    const router = useRouter()
+  const router = useRouter()
+  if(state.roundIndex === 3) {
+    router.push({path: "/deckbuilder"})
+  }
+  else if(state.pickIndex / state.packSize === 1 && state.roundIndex !== 3)  {
     router.push({path: "/picks"})
     state.roundIndex++
     state.pickIndex = 0

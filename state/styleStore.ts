@@ -17,14 +17,14 @@ export const useStyleStore = defineStore('style', {
             const cardboxClass = useCardBoxClass()
             if(roundFlag == true) { // round is odd
                 cardboxClass.value = "cardbox-right"
-                await this.delay(300)
+                await this.delay(400)
                 cardboxClass.value = "cardbox-left"
-                await this.delay(200)
+                await this.delay(300)
             } else {
                 cardboxClass.value = "cardbox-left"
-                await this.delay(300)
+                await this.delay(400)
                 cardboxClass.value = "cardbox-right"
-                await this.delay(200)
+                await this.delay(300)
             }
                 cardboxClass.value = "cardbox-medium"
         },

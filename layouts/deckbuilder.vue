@@ -1,5 +1,5 @@
 <template>
-    <PickBar /> 
+    <DeckBar /> 
     <div class="pick-body">
         <slot />
     </div>
