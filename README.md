@@ -1,6 +1,6 @@
 # What is picked?
 
-Picked is a card picking simulator designed to simulat the limited format of the card game Flesh and Blood.
+Picked is a card picking simulator designed to simulate the limited format of the card game Flesh and Blood. It is intended to help card game players practice drafting without having to spend lots of money on real-life draft events. 
 
 ## How do I use it?
 
