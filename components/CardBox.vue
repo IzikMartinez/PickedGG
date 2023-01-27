@@ -1,5 +1,5 @@
 <template>
-    <div v-for="card in current_pack?.cards" :key="card.card_in_pack">
+    <div v-for="card in current_pack!.cards" :key="card.card_in_pack">
       <Card 
         :card-props="card" 
         :picked-flag="false"
