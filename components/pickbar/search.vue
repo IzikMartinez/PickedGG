@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-const search_text = ref("SEARCH...")
+const search_text = useState('search', ()=> ref('SEARCH...'))
 
 </script>
 

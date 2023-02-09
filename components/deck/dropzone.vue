@@ -6,13 +6,10 @@
     @dragenter.prevent
     >
         <span v-if="deck.length === 0">Drop cards here
-        <DeckCard name="Brain Freeze" :pitch="2" :cost="0"/>
-        <DeckCard name="Brain Freeze" :pitch="3" :cost="0"/>
-        <DeckCard name="Ice Bolt" :pitch="1" :cost="2"/>
         </span>
         <span v-else>
             <span v-for="card in deck">
-                <Card :card-props="card" :picked-flag="true" />
+                <DeckCard :card-props="card" @emitted-card-name="handleEmit"/>
             </span>
         </span>
     </div>
@@ -47,6 +44,11 @@ function onDrop(event: DragEvent) {
             usePickStore().removePick(card)
         }
     }
+}
+
+function handleEmit(cardName: string) {
+    const index = deck.value.findIndex(x => x.card_name = cardName)
+    if (index > -1)  deck.value.splice(index, 1)
 }
 
 </script>
