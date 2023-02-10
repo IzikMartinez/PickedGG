@@ -1,6 +1,6 @@
 <template>
     <NuxtLink to="/">
-        <span class="nextbtn">{{ buttonText }}</span>
+        <span class="nextbtn" @click="clickHandler">{{ buttonText }}</span>
     </NuxtLink>
 </template>
 
@@ -9,6 +9,11 @@
 const props = defineProps<{
     buttonText: string
 }>()
+
+function clickHandler() {
+
+}
+
 
 </script>
 

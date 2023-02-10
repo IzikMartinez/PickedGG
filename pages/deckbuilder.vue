@@ -1,5 +1,5 @@
 <template>
-        <DeckRow overflow="hidden"/>
+        <DeckRow overflow="auto"/>
         <DeckDropzone overflow="hidden"/>
 </template>
 

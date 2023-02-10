@@ -102,7 +102,7 @@ async function onCardEvent(eventType: string) {
 
 .cardbox-left {
   @apply
-  flex absolute flex-wrap justify-center 
+  flex flex-wrap justify-center 
   xl:w-90 w-60
   gap-1 overflow-auto
   transform
@@ -112,7 +112,7 @@ async function onCardEvent(eventType: string) {
 
 .cardbox-right {
   @apply
-  flex absolute flex-wrap justify-center 
+  flex flex-wrap justify-center 
   xl:w-90 w-60
   gap-1 overflow-auto
   transform

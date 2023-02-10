@@ -47,8 +47,10 @@ function onDrop(event: DragEvent) {
 }
 
 function handleEmit(cardName: string) {
-    const index = deck.value.findIndex(x => x.card_name = cardName)
-    if (index > -1)  deck.value.splice(index, 1)
+    const index = deck.value.findIndex(x => x.card_name === cardName)
+    if (index > -1)  {
+        deck.value.splice(index, 1)
+    }
 }
 
 </script>

@@ -6,7 +6,7 @@
         <PickbarBtn text="dromai"/>
         <PickbarBtn text="fai"/>
         <PickbarBtn text="iyslander"/>
-        <PickbarNextbtn/>
+        <PickbarNextbtn button-text="Next Round"/>
     </div>
 </template>
 

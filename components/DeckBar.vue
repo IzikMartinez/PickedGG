@@ -6,6 +6,7 @@
         <PickbarBtn text="dromai"/>
         <PickbarBtn text="fai"/>
         <PickbarBtn text="iyslander"/>
+        <DeckNextbtn button-text="Finish Deck"/>
     </div>
 </template>
 
