@@ -1,6 +1,8 @@
 import Round from "./round";
 import {query} from "./types/query";
 
+export const useDraftState = ()=> useState('draft-cards', ()=> new Draft)
+
 export const useDraft = ()=> {
     const draft = new Draft()
     return draft

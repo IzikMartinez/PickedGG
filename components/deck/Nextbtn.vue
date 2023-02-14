@@ -1,7 +1,5 @@
 <template>
-    <NuxtLink to="/">
-        <span class="nextbtn" @click="clickHandler">{{ buttonText }}</span>
-    </NuxtLink>
+    <span class="nextbtn" @click="clickHandler">{{ buttonText }}</span>
 </template>
 
 
@@ -12,6 +10,10 @@ const props = defineProps<{
 
 function clickHandler() {
 
+    const decksize = useState('deck-size').value as number
+    const router = useRouter()
+    if (decksize >= 30)
+        router.push("/")
 }
 
 

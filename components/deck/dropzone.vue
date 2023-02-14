@@ -34,6 +34,8 @@ type card = {
 const deck = ref<Array<card>>([])
 const cardName = ref("")
 
+const decksize = ()=> useState('deck-size', ()=> ref(deck.value.length))
+
 function onDrop(event: DragEvent) {
     if(event.dataTransfer) {
         cardName.value = event.dataTransfer.getData('cardData')

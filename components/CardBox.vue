@@ -15,15 +15,14 @@ import Picker from '~~/composables/picker';
 
 const PACK_SIZE=14
 const PLAYER_NUM=7
-const draft = useDraft()
+const thisdraft = useDraft()
 const store = usePickStore()
 const timerStore = useTimerStore()
 
 const current_pack_index = computed(()=>store.getPickIndex % PLAYER_NUM)
-const current_round = computed( ()=> {const round = draft.getRound(store.getRoundIndex ); return (round) ? round : null} )
-const current_pack = computed(()=> { return (current_round.value) ? current_round.value.getPack(current_pack_index.value) : null})
+const current_pack = computed(()=> { return thisdraft.getRound(current_pack_index.value)?.getPack(current_pack_index.value)})
 const pick_number = computed(()=> (store.getPickIndex % PACK_SIZE))
-const picker: Picker = new Picker(draft, store.getRoundIndex, current_pack_index.value)
+const picker: Picker = new Picker(thisdraft, store.getRoundIndex, current_pack_index.value)
 
 const emit = defineEmits(['cardboxClicked'])
 defineExpose({ timeoutPick })
@@ -48,6 +47,7 @@ function clickPick(card_in_pack_id: number | undefined) {
     pick(card_in_pack_id)
   }
 }
+
 
 </script>
 
