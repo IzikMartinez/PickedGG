@@ -20,7 +20,7 @@ const store = usePickStore()
 const timerStore = useTimerStore()
 
 const current_pack_index = computed(()=>store.getPickIndex % PLAYER_NUM)
-const current_pack = computed(()=> { return thisdraft.getRound(current_pack_index.value)?.getPack(current_pack_index.value)})
+const current_pack = computed(()=> { return thisdraft.getRound(store.getRoundIndex)?.getPack(current_pack_index.value)})
 const pick_number = computed(()=> (store.getPickIndex % PACK_SIZE))
 const picker: Picker = new Picker(thisdraft, store.getRoundIndex, current_pack_index.value)
 

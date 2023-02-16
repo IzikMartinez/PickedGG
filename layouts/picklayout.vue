@@ -1,5 +1,5 @@
 <template>
-    <PickBar /> 
+    <PickBar class="flex flex-row w-screen xl:h-14 h-28 bg-darkteal top-0 left-0 items-center justify-center"/> 
     <div class="pick-body">
         <slot />
     </div>
@@ -10,9 +10,10 @@
 </script>
 
 <style>
+
 .pick-body {
     @apply fixed flex justify-center text-center
-    top-14 left-0
+    xl:top-14 top-28 left-0 
     w-screen h-screen
     overflow-auto
     bg-gradient-to-b from-red-900 to-black
