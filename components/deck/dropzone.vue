@@ -1,12 +1,18 @@
 <template>
+    <div>
+        <span 
+            :class="btnClass" 
+            @click="bladeSwitch = !bladeSwitch">
+                Open
+        </span>
+    </div>
     <div 
-    class="flex w-120 h-screen left-0 top-0 bg-teal-700 hover:bg-teal-400 text-center justify-center font-display text-xl text-white" 
+    :class="bladeClass" 
     @drop="onDrop($event)"
     @dragover.prevent
     @dragenter.prevent
     >
-        <span v-if="deck.length === 0">Drop cards here
-        </span>
+        <span v-if="deck.length === 0"> </span>
         <span v-else>
             <span v-for="card in deck">
                 <DeckCard :card-props="card" @emitted-card-name="handleEmit"/>
@@ -36,6 +42,10 @@ const cardName = ref("")
 
 const decksize = ()=> useState('deck-size', ()=> ref(deck.value.length))
 
+const bladeSwitch = ref(false)
+const bladeClass = computed(()=> bladeSwitch.value ? "blade-collapsed" : "blade")
+const btnClass = computed(()=> bladeSwitch.value ? "blade-btn-col" : "blade-btn")
+
 function onDrop(event: DragEvent) {
     if(event.dataTransfer) {
         cardName.value = event.dataTransfer.getData('cardData')
@@ -56,3 +66,26 @@ function handleEmit(cardName: string) {
 }
 
 </script>
+
+<style>
+.blade {
+ @apply flex w-120 h-screen left-0 top-0 bg-teal-700 hover:bg-teal-400 text-center justify-center font-display text-xl text-white
+ transition-all duration-150
+}
+
+.blade-collapsed {
+ @apply flex w-20 h-screen left-0 top-0 bg-teal-700 hover:bg-teal-400 text-center justify-center font-display text-xl text-white
+ transition-all duration-150
+}
+
+.blade-btn {
+    @apply bg-teal-800 hover:bg-teal-500 active:bg-teal-300 h-10 w-12 top-28 right-66 flex fixed rounded-l-lg cursor-pointer
+ transition-all duration-150
+}
+
+.blade-btn-col {
+    @apply bg-teal-800 hover:bg-teal-500 active:bg-teal-300 h-10 w-12 top-28 right-17 flex fixed rounded-l-lg cursor-pointer
+ transition-all duration-150
+}
+
+</style>

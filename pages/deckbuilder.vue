@@ -1,6 +1,6 @@
 <template>
         <DeckRow overflow="auto"/>
-        <DeckDropzone overflow="hidden"/>
+        <DeckDropzone />
 </template>
 
 <script setup lang="ts">
