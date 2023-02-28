@@ -2,7 +2,7 @@
   <!-- store.cardSizeClass.at(0) returns the class, "card", "card-sml", or "card-big".
   It will return "card" by default.  -->
   <span :class="cardClass">
-      <CardTooltip group-hover="scale-100 delay-700" :cardData="cardProps" @click="addPick"/>
+      <CardTooltip group-hover="xl:scale-100 scale-0 z-0 delay-700" :cardData="cardProps" @click="addPick"/>
       <CardImage :path="artPath" :card_name="cardProps.card_name" @click="addPick"/>
   </span>
 

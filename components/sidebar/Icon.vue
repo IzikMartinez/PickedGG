@@ -1,7 +1,7 @@
 <template>
   <div class="side-btn group">
     <img :src=iconPath :alt="iconPath" />
-    <span class="tooltip lg:group-hover:scale-100 group-hover:scale-100 translate-z-2">{{props.toolTip}}</span>
+    <span class="tooltip lg:group-hover:scale-100 group-hover:scale-0 translate-z-2">{{props.toolTip}}</span>
   </div>
 </template>
 

@@ -1,16 +1,10 @@
 <template>
-    <div>
-        <span 
-            :class="btnClass" 
-            @click="bladeSwitch = !bladeSwitch">
-                Open
-        </span>
-    </div>
     <div 
     :class="bladeClass" 
     @drop="onDrop($event)"
     @dragover.prevent
     @dragenter.prevent
+    @click="bladeSwitch = !bladeSwitch"
     >
         <span v-if="deck.length === 0"> </span>
         <span v-else>
@@ -42,8 +36,8 @@ const cardName = ref("")
 
 const decksize = ()=> useState('deck-size', ()=> ref(deck.value.length))
 
-const bladeSwitch = ref(false)
-const bladeClass = computed(()=> bladeSwitch.value ? "blade-collapsed" : "blade")
+const bladeSwitch = useBladeSwitch()
+const bladeClass = computed(()=> bladeSwitch.value ? 'blade' : 'blade-clps')
 const btnClass = computed(()=> bladeSwitch.value ? "blade-btn-col" : "blade-btn")
 
 function onDrop(event: DragEvent) {
@@ -69,22 +63,23 @@ function handleEmit(cardName: string) {
 
 <style>
 .blade {
- @apply flex w-120 h-screen left-0 top-0 bg-teal-700 hover:bg-teal-400 text-center justify-center font-display text-xl text-white
+ @apply fixed flex w-70 h-screen right-0 xl:top-14 top-28 bg-teal-700 hover:bg-teal-400 text-center justify-center font-display text-xl text-white
  transition-all duration-150
+ transform z-0
 }
 
-.blade-collapsed {
- @apply flex w-20 h-screen left-0 top-0 bg-teal-700 hover:bg-teal-400 text-center justify-center font-display text-xl text-white
+.blade-clps {
+ @apply fixed flex w-10 h-screen right-0 xl:top-14 top-28 bg-teal-700 hover:bg-teal-400 text-center justify-center font-display text-xl text-white
  transition-all duration-150
 }
 
 .blade-btn {
-    @apply bg-teal-800 hover:bg-teal-500 active:bg-teal-300 h-10 w-12 top-28 right-66 flex fixed rounded-l-lg cursor-pointer
+    @apply bg-teal-700 hover:bg-teal-500 active:bg-teal-300 h-10 w-12 top-28 right-66 flex fixed rounded-l-lg cursor-pointer
  transition-all duration-150
 }
 
 .blade-btn-col {
-    @apply bg-teal-800 hover:bg-teal-500 active:bg-teal-300 h-10 w-12 top-28 right-17 flex fixed rounded-l-lg cursor-pointer
+    @apply bg-teal-700 hover:bg-teal-500 active:bg-teal-300 h-10 w-12 top-28 right-17 flex fixed rounded-l-lg cursor-pointer
  transition-all duration-150
 }
 

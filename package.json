@@ -8,8 +8,10 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@nuxt/test-utils": "^3.2.2",
     "nuxt": "3.0.0",
-    "nuxt-windicss": "^2.6.0"
+    "nuxt-windicss": "^2.6.0",
+    "vitest": "^0.28.5"
   },
   "dependencies": {
     "@nuxtjs/supabase": "^0.3.0",
