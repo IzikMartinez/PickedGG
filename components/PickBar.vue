@@ -1,9 +1,9 @@
 <template>
-    <div class="flex flex-row flex-wrap">
+    <div class="flex flex-row flex-wrap w-screen">
         <div>
             <PickbarSearch />
         </div>
-        <div class="flex flex-row">
+        <div class="flex flex-row w-screen">
             <PickbarBtn text="all"/>
             <PickbarBtn text="generic"/>
             <PickbarBtn text="dromai"/>

@@ -14,7 +14,7 @@
 .pickbtn {
     @apply
     flex items-center justify-center text-center
-    w-22 h-12 mx-2 
+    w-22 h-12 mx-2 p-2 xl:p-0
     font-display text-white text-xl bg-blue-gray-800 rounded-xl
     cursor-pointer
     hover:(bg-red-600 rounded-md)
@@ -24,7 +24,7 @@
 .pickbtn-active {
     @apply
     flex items-center justify-center text-center
-    w-24 h-12 mx-2 
+    w-24 h-12 mx-2 p-2 xl:p-0
     font-display text-white text-2xl bg-red-700 rounded-md
     transition-all duration-100 ease-linear
 }

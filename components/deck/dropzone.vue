@@ -40,6 +40,16 @@ const bladeSwitch = useBladeSwitch()
 const bladeClass = computed(()=> bladeSwitch.value ? 'blade' : 'blade-clps')
 const btnClass = computed(()=> bladeSwitch.value ? "blade-btn-col" : "blade-btn")
 
+/* FilterFunction(card) {
+    name = card.name
+    if(!names.find(name)) 
+        names.push(name)
+    else 
+        card.number++
+    
+}
+*/
+// filteredArray = deck.filter(FilterFunction)
 function onDrop(event: DragEvent) {
     if(event.dataTransfer) {
         cardName.value = event.dataTransfer.getData('cardData')

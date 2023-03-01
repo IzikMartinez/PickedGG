@@ -1,1 +1,1 @@
-export const useBladeSwitch = ()=> useState('blade-switch', ()=> true)
+export const useBladeSwitch = ()=> useState('blade-switch', ()=> false)
