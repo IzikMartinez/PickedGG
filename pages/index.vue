@@ -44,10 +44,10 @@ const cardDataStore = useState('card-data', ()=> cardData)
 
 store.$subscribe( (mutation, state)=> {
   const router = useRouter()
-  if(state.roundIndex === 3) {
+  if(state.roundIndex === 2) {
     router.push({path: "/deckbuilder"})
   }
-  else if(state.pickIndex / state.packSize === 1 && state.roundIndex !== 3)  {
+  else if(state.pickIndex / state.packSize === 1 && state.roundIndex !== 2)  {
     router.push({path: "/picks"})
     state.roundIndex++
     state.pickIndex = 0
@@ -95,7 +95,7 @@ async function onCardEvent(eventType: string) {
 .cardbox-large {
   @apply
   flex flex-wrap
-  xl:w-90rem w-64
+  xl:w-90rem w-72
   gap-1 justify-center overflow-auto overflow-hidden
   transition-all duration-150 ease-linear
 }

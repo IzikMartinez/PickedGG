@@ -77,7 +77,7 @@ onUpdated( ()=> {
   flex relative items-center justify-center text-center
   m-0 p-0.5
   xl:(w-88 h-123)
-  w-58 h-81
+  w-70 h-96
   bg-black hover:bg-gray-100
 }
 
