@@ -2,20 +2,22 @@
   <!-- store.cardSizeClass.at(0) returns the class, "card", "card-sml", or "card-big".
   It will return "card" by default.  -->
   <span :class="cardClass">
-      <CardTooltip group-hover="xl:scale-100 scale-0 z-0 delay-700" :cardData="cardProps" @click="addPick"/>
-      <CardImage :path="artPath" :card_name="cardProps.card_name" @click="addPick"/>
+      <CardTooltip group-hover="xl:scale-100 scale-0 z-0 delay-700" :card-props="cardProps"/>
+      <CardImage :record_id="cardProps" :card_name="cardProps.card_name" :cart_art="cardProps.card_art"/>
   </span>
 
 </template>
 
 <script setup lang="ts">
 import {card} from 'composables/types/card';
+import { Record } from 'pocketbase';
 
 const picks = usePickStore()
 const props = defineProps<{
-  cardProps: card
+  cardProps: Record 
   pickedFlag: boolean
 }>()
+
 const emit = defineEmits<{
   (e: 'cardClicked', type: number): void
 }>()
@@ -24,6 +26,7 @@ const emit = defineEmits<{
 const cardClass = useCardClass() 
 const artPath = ref("")
 
+/*
 function addPick() {
   if (props.pickedFlag === true) {
     console.log("Cannot add ", props.cardProps.card_name, " As it has already been picked.")
@@ -42,6 +45,7 @@ onMounted(()=> {
 onUpdated( ()=> {
   const getArt = useGetArt(props.cardProps.card_id).then( val => artPath.value = val as string)
 })
+*/
 </script>
 
 

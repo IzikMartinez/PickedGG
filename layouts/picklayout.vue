@@ -1,7 +1,7 @@
 <template>
     <PickBar class="flex flex-row w-screen xl:h-14 h-28 bg-darkteal top-0 left-0 items-center justify-center"/> 
     <div class="pick-body">
-            <slot />
+        <slot />
     </div>
 </template>
 

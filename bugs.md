@@ -3,3 +3,4 @@
 2. Deckbuilder Page occasionally does not load
     * fixed
 3. Next round button is on top of the lowest card on the picks screen
+4. Page reload resets the cards but not the pick and pack numbers

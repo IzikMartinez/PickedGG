@@ -12,9 +12,13 @@
 <script setup lang="ts">
 import Picker from '~~/composables/picker';
 
-
 const PACK_SIZE=14
 const PLAYER_NUM=7
+
+const props = defineProps<{
+  set_name: string
+}>()
+
 const thisdraft = useDraft()
 const store = usePickStore()
 const timerStore = useTimerStore()

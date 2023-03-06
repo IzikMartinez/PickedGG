@@ -6,6 +6,8 @@ export default defineConfig({
         extend: {
             colors: {
                 darkteal: '#004543',
+                outsiders: '#1C2442',
+                uprising: '#3A0101',
             },
             fontFamily: {
                 'display': ['"Bebas Neue"'],
