@@ -1,5 +1,6 @@
 import {card} from "composables/types/card";
 import { Record } from "pocketbase";
+import { useRecords } from "./usePocketbase";
 
 
 export default class Pack {
@@ -7,7 +8,7 @@ export default class Pack {
     picked_id =0;
 
     pack_id: number = 0
-    cards: card[] = []
+    cards: Record[] = []
 
     constructor(pack_id: number) {
         this.pack_id = pack_id
@@ -64,19 +65,24 @@ export default class Pack {
         pack.push(this.makeCard(data, cardPackID))
     }
 
-    filterByType(type: string, data: Record[]): Record[] {
-        return data.filter( x => x.card_type?.includes(type))
+    filterByType(type: string, cardData: Record[]): Record[] {
+        const filtered = cardData.filter( x => x.card_type.includes(type))
+        console.log(filtered);
+        
+        return filtered
+
     }
 
-    filterByRarity(rarity: string, data: Record[]): Record[] {
-        return data.filter( x => x.rarity === rarity )
+    filterByRarity(rarity: string, cardData: Record[]): Record[] {
+        
+        return cardData.filter( x => x.rarity === rarity )
     }
 
     ////////////////////////////////////////////////////////////////////////////
     // LAYER 2 METHODS
     ////////////////////////////////////////////////////////////////////////////
-    filterByTypeAndRarity(type: string, rarity: string, data: Record[]): Record[] {
-        const cards_by_type = this.filterByType(type, data)
+    filterByTypeAndRarity(type: string, rarity: string, cardData: Record[]): Record[] {
+        const cards_by_type = this.filterByType(type, cardData)
         return this.filterByRarity(rarity, cards_by_type)
     }
 
@@ -93,8 +99,8 @@ export default class Pack {
     ////////////////////////////////////////////////////////////////////////////
     // LAYER 3 METHODS
     ////////////////////////////////////////////////////////////////////////////
-    getCardTR(type: string, rarity: string, cards: Record[]): Record{
-        let cards_by_type_rarity = this.filterByTypeAndRarity(type, rarity, cards)
+    getCardTR(type: string, rarity: string, cardData: Record[]): Record{
+        let cards_by_type_rarity = this.filterByTypeAndRarity(type, rarity, cardData)
         //function that gets a random number based on length of cards_by_type_rarity
         let card_index = this.randomCardNumber(cards_by_type_rarity)
         //function that uses random number to get the corresponding card from the list
@@ -103,8 +109,8 @@ export default class Pack {
         //return the card
     }
 
-    getCardR(rarity: string, cards: Record[]): Record{
-        let cards_by_rarity = this.filterByRarity(rarity, cards)
+    getCardR(rarity: string, cardData: Record[]): Record{
+        let cards_by_rarity = this.filterByRarity(rarity, cardData)
         //function that gets a random number based on length of cards_by_type_rarity
         let card_index = this.randomCardNumber(cards_by_rarity)
         //function that uses random number to get the corresponding card from the list
@@ -113,10 +119,11 @@ export default class Pack {
         //return the card
     }
 
-    RecordToCard(cards: Record[], card_in_pack: number, rarity: string, type?: string): card {
-        let RecordCard = ref<Record>()
-        if(type) RecordCard.value = this.getCardTR(type, rarity, cards) as Record 
-        else RecordCard.value = this.getCardR(rarity, cards) as Record 
+    BuildCard(cardData: Record[], card_in_pack: number, rarity: string, type?: string): Record {
+
+        if(type) return this.getCardTR(type, rarity, cardData) as Record 
+        else return this.getCardR(rarity, cardData) as Record 
+        /*
         return {
             record_id: RecordCard.value.id,
             card_in_pack: card_in_pack,
@@ -130,6 +137,7 @@ export default class Pack {
             rarity: RecordCard.value.rarity,
             card_art: RecordCard.value.card_art
         }
+        */
     }
 
     randomClass(class1: string, class2: string, odds1: number, odds2: number): string {
@@ -142,23 +150,29 @@ export default class Pack {
     ////////////////////////////////////////////////////////////////////////////
     // LAYER 4 METHODS
     ////////////////////////////////////////////////////////////////////////////
-    buildPack(): card[] {
-        let pack: card[] = []
-        const cardData = useState('card-data').value as Record[]
-        pack.push(this.RecordToCard(cardData,0, "common", "generic"))
-        pack.push(this.RecordToCard(cardData,1, "common", "ice"))
-        pack.push(this.RecordToCard(cardData,2, "common", "draconic"))
-        pack.push(this.RecordToCard(cardData,3, "common", "generic"))
-        pack.push(this.RecordToCard(cardData,4, "rare"))
-        pack.push(this.RecordToCard(cardData,5, this.randomClass("rare","majestic", 75, 100)))
-        pack.push(this.RecordToCard(cardData,6, this.randomClass("common", "rare", 97,100)))
-        pack.push(this.RecordToCard(cardData,7, "common", "ninja"))
-        pack.push(this.RecordToCard(cardData,8, "common", "ninja"))
-        pack.push(this.RecordToCard(cardData,9, "common", "illusionist"))
-        pack.push(this.RecordToCard(cardData,10, "common", "illusionist"))
-        pack.push(this.RecordToCard(cardData,11, "common", "wizard"))
-        pack.push(this.RecordToCard(cardData,12, "common", "wizard"))
-        pack.push(this.RecordToCard(cardData,13, "common", "wizard"))
+    buildPack(): Record[] {
+        let pack: Record[] = []
+        const cardData = useRecords
+        pack.push(this.BuildCard(cardData,0, "common", "Assassin"))
+        pack.push(this.BuildCard(cardData,1, "common", "Assassin"))
+        pack.push(this.BuildCard(cardData,2, "common", "Assassin"))
+        pack.push(this.BuildCard(cardData,3, "common", "Assassin"))
+        /*
+        pack.push(this.BuildCard(cardData,0, "common", "generic"))
+        pack.push(this.BuildCard(cardData,1, "common", "ice"))
+        pack.push(this.BuildCard(cardData,2, "common", "draconic"))
+        pack.push(this.BuildCard(cardData,3, "common", "generic"))
+        pack.push(this.BuildCard(cardData,4, "rare"))
+        pack.push(this.BuildCard(cardData,5, this.randomClass("rare","majestic", 75, 100)))
+        pack.push(this.BuildCard(cardData,6, this.randomClass("common", "rare", 97,100)))
+        pack.push(this.BuildCard(cardData,7, "common", "ninja"))
+        pack.push(this.BuildCard(cardData,8, "common", "ninja"))
+        pack.push(this.BuildCard(cardData,9, "common", "illusionist"))
+        pack.push(this.BuildCard(cardData,10, "common", "illusionist"))
+        pack.push(this.BuildCard(cardData,11, "common", "wizard"))
+        pack.push(this.BuildCard(cardData,12, "common", "wizard"))
+        pack.push(this.BuildCard(cardData,13, "common", "wizard"))
+        */
         return pack;
     }
 

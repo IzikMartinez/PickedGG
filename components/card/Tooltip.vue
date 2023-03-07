@@ -8,18 +8,10 @@
 
 <script setup lang="ts">
 import { Record } from 'pocketbase';
-import { card } from '~~/composables/types/card';
 const props= defineProps<{
     cardProps: Record 
 }>()
-/*
-const stringifyType = computed(()=> {
-  let type_string = ""
-  if(cardProps.value.card_type)
-    cardProps.value.card_type.forEach(type => type_string += type + " ")
-  return type_string
-})
-*/
+
 </script>
 
 <style scoped>

@@ -1,27 +1,25 @@
 <template>
   <div id="card-box" >
     <transition name="cardbody" appear>
-      <span v-if="isLoading">Loading...</span>
-      <span v-else>
+      <!-- <span v-if="useIsLoading">Loading...</span>
+      <span v-else> -->
         <div class="flex flex-col items-center ">
           <DraftInfo ref="infoRef"/>
           <span :class="cardBoxClass">
-           <!-- <CardBox @cardbox-clicked="onCardEvent('clicked')" ref="cardboxRef" :set_name="SET_NAME"/> -->
+           <CardBox @cardbox-clicked="onCardEvent('clicked')" ref="cardboxRef" :set_name="SET_NAME"/> 
+            <!-- 
            <Card :card-props="cardData!.at(0) as Record" :picked-flag="false"></Card>
            <Card :card-props="cardData!.at(12) as Record" :picked-flag="false"></Card>
            <Card :card-props="cardData!.at(3) as Record" :picked-flag="false"></Card>
-           <Card :card-props="cardData!.at(4) as Record" :picked-flag="false"></Card>
+           <Card :card-props="cardData!.at(4) as Record" :picked-flag="false"></Card> -->
           </span>
         </div>
-      </span>
+      <!-- </span> -->
     </transition>
   </div>
 </template>
 
 <script setup lang="ts">
-import { query } from 'composables/types/query'
-import { Record } from 'pocketbase';
-import { useRecords } from '~~/composables/usePocketbase';
 
 definePageMeta({ layout: 'default'})
 
@@ -36,11 +34,7 @@ const timerStore = useTimerStore()
 
 const SET_NAME = route.params.id as string
 
-const {data: cardData, pending: isLoading, error: err} = await useAsyncData(async ()=> {
-    return useRecords as Record[] 
-})
-
-const cardDataStore = useState('card-data', ()=> cardData)
+const cardDataStore = useState('card-data', ()=> useRecords)
 
 
 

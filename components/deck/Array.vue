@@ -7,10 +7,11 @@
 </template>
 
 <script setup lang="ts">
+import { Record } from 'pocketbase';
 import { card } from '~~/composables/types/card.js';
 
 const props = defineProps<{
-    picks: card[]
+    picks: Record[]
 }>()
 
 function startDrag(event: DragEvent, pick: card) {
