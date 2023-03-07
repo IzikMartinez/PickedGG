@@ -16,7 +16,7 @@ const props = defineProps({
 })
 
 const pick_pack_data = computed( ()=>  props.picksPacks==="pick" ? (store.getPickIndex % 14)+1 : store.getRoundIndex+1)
-const pick_pack_body = computed( ()=> props.picksPacks==="pick" ? "side-btn-pick group" : "side-btn-pack group")
+const pick_pack_body = computed( ()=> "icon-" + props.picksPacks + "-" + useSetName().value + " group" )
 
 
 </script>
@@ -24,26 +24,49 @@ const pick_pack_body = computed( ()=> props.picksPacks==="pick" ? "side-btn-pick
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
-.side-btn-pick {
+
+.icon-pick-upr {
   @apply flex items-center justify-center
-  w-16 h-16 p-2
-  mx-2 my-2
-  z-10
+  w-17 h-16 p-2
+  mx-3 my-2
+  z-11
   bg-darkteal
   text-white
   rounded-r-lg hover:rounded
-  transition-all duration-150
+  transition-all duration-151
 }
 
-.side-btn-pack {
+.icon-pack-upr {
   @apply flex items-center justify-center
-  w-16 h-16 p-2
-  mx-2 my-2
-  z-10
+  w-17 h-16 p-2
+  mx-3 my-2
+  z-11
   bg-darkteal
   text-white
   rounded-l-lg hover:rounded
-  transition-all duration-150
+  transition-all duration-151
+}
+
+.icon-pick-out {
+  @apply flex items-center justify-center
+  w-17 h-16 p-2
+  mx-3 my-2
+  z-11
+  bg-red-900
+  text-white
+  rounded-r-lg hover:rounded
+  transition-all duration-151
+}
+
+.icon-pack-out {
+  @apply flex items-center justify-center
+  w-17 h-16 p-2
+  mx-3 my-2
+  z-11
+  bg-red-900
+  text-white
+  rounded-l-lg hover:rounded
+  transition-all duration-151
 }
 
 .small-text{

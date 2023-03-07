@@ -1,4 +1,5 @@
 export type card = {
+    record_id: string,
     card_id: number
     card_in_pack?: number
     card_name: string
@@ -9,7 +10,7 @@ export type card = {
     defense: number | null
     rarity: string
     picked?: boolean
-    path?: string
+    card_art: string
 }
 
 

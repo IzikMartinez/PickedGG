@@ -1,5 +1,5 @@
-import {query} from "composables/types/query";
 import {card} from "composables/types/card";
+import { Record } from "pocketbase";
 
 
 export default class Pack {
@@ -18,8 +18,9 @@ export default class Pack {
         return this.cards
     }
 
-    makeCard(data: query, cardPackID: number): card {
+    makeCard(data: Record, cardPackID: number): card {
         return {
+            record_id: data.id,
             card_id: data.card_id,
             card_in_pack: cardPackID,
             card_name: data.card_name,
@@ -28,7 +29,8 @@ export default class Pack {
             cost: data.cost,
             power: data.power,
             defense: data.defense,
-            rarity: data.rarity
+            rarity: data.rarity,
+            card_art: data.card_art
         }
     }
 
@@ -58,40 +60,40 @@ export default class Pack {
         //return this.lcg(21, 3, 7, seed, 3)[1] % max
     }
 
-    pushCard(pack: card[], data: query, cardPackID: number) {
+    pushCard(pack: card[], data: Record, cardPackID: number) {
         pack.push(this.makeCard(data, cardPackID))
     }
 
-    filterByType(type: string, data: query[]): query[] {
-        return data.filter( x => x.card_type?.find(y => y === type))
+    filterByType(type: string, data: Record[]): Record[] {
+        return data.filter( x => x.card_type?.includes(type))
     }
 
-    filterByRarity(rarity: string, data: query[]): query[] {
+    filterByRarity(rarity: string, data: Record[]): Record[] {
         return data.filter( x => x.rarity === rarity )
     }
 
     ////////////////////////////////////////////////////////////////////////////
     // LAYER 2 METHODS
     ////////////////////////////////////////////////////////////////////////////
-    filterByTypeAndRarity(type: string, rarity: string, data: query[]): query[] {
+    filterByTypeAndRarity(type: string, rarity: string, data: Record[]): Record[] {
         const cards_by_type = this.filterByType(type, data)
         return this.filterByRarity(rarity, cards_by_type)
     }
 
-    randomCardNumber(cards: query[]): number {
+    randomCardNumber(cards: Record[]): number {
         //return cards[this.getRandomInt(cards.length, cardPackID)]
         return this.getRandomInt(cards.length, 0)
     }
 
-    getRandomCard(card_index: number, cards: query[]): query {
-        let card = cards.at(card_index) as query
+    getRandomCard(card_index: number, cards: Record[]): Record {
+        let card = cards.at(card_index) as Record
         return card
     }
 
     ////////////////////////////////////////////////////////////////////////////
     // LAYER 3 METHODS
     ////////////////////////////////////////////////////////////////////////////
-    getCardTR(type: string, rarity: string, cards: query[]): query {
+    getCardTR(type: string, rarity: string, cards: Record[]): Record{
         let cards_by_type_rarity = this.filterByTypeAndRarity(type, rarity, cards)
         //function that gets a random number based on length of cards_by_type_rarity
         let card_index = this.randomCardNumber(cards_by_type_rarity)
@@ -101,7 +103,7 @@ export default class Pack {
         //return the card
     }
 
-    getCardR(rarity: string, cards: query[]): query {
+    getCardR(rarity: string, cards: Record[]): Record{
         let cards_by_rarity = this.filterByRarity(rarity, cards)
         //function that gets a random number based on length of cards_by_type_rarity
         let card_index = this.randomCardNumber(cards_by_rarity)
@@ -111,20 +113,22 @@ export default class Pack {
         //return the card
     }
 
-    queryToCard(cards: query[], card_in_pack: number, rarity: string, type?: string): card {
-        let queryCard = ref<query>()
-        if(type) queryCard.value = this.getCardTR(type, rarity, cards) as query
-        else queryCard.value = this.getCardR(rarity, cards) as query
+    RecordToCard(cards: Record[], card_in_pack: number, rarity: string, type?: string): card {
+        let RecordCard = ref<Record>()
+        if(type) RecordCard.value = this.getCardTR(type, rarity, cards) as Record 
+        else RecordCard.value = this.getCardR(rarity, cards) as Record 
         return {
+            record_id: RecordCard.value.id,
             card_in_pack: card_in_pack,
-            card_id: queryCard.value.card_id,
-            card_name: queryCard.value.card_name,
-            card_type: queryCard.value.card_type,
-            pitch: queryCard.value.pitch,
-            cost: queryCard.value.cost,
-            power: queryCard.value.power,
-            defense: queryCard.value.defense,
-            rarity: queryCard.value.rarity,
+            card_id: RecordCard.value.card_id,
+            card_name: RecordCard.value.card_name,
+            card_type: RecordCard.value.card_type,
+            pitch: RecordCard.value.pitch,
+            cost: RecordCard.value.cost,
+            power: RecordCard.value.power,
+            defense: RecordCard.value.defense,
+            rarity: RecordCard.value.rarity,
+            card_art: RecordCard.value.card_art
         }
     }
 
@@ -140,21 +144,21 @@ export default class Pack {
     ////////////////////////////////////////////////////////////////////////////
     buildPack(): card[] {
         let pack: card[] = []
-        const cardData = useState('card-data').value as query[]
-        pack.push(this.queryToCard(cardData,0, "common", "generic"))
-        pack.push(this.queryToCard(cardData,1, "common", "ice"))
-        pack.push(this.queryToCard(cardData,2, "common", "draconic"))
-        pack.push(this.queryToCard(cardData,3, "common", "generic"))
-        pack.push(this.queryToCard(cardData,4, "rare"))
-        pack.push(this.queryToCard(cardData,5, this.randomClass("rare","majestic", 75, 100)))
-        pack.push(this.queryToCard(cardData,6, this.randomClass("common", "rare", 97,100)))
-        pack.push(this.queryToCard(cardData,7, "common", "ninja"))
-        pack.push(this.queryToCard(cardData,8, "common", "ninja"))
-        pack.push(this.queryToCard(cardData,9, "common", "illusionist"))
-        pack.push(this.queryToCard(cardData,10, "common", "illusionist"))
-        pack.push(this.queryToCard(cardData,11, "common", "wizard"))
-        pack.push(this.queryToCard(cardData,12, "common", "wizard"))
-        pack.push(this.queryToCard(cardData,13, "common", "wizard"))
+        const cardData = useState('card-data').value as Record[]
+        pack.push(this.RecordToCard(cardData,0, "common", "generic"))
+        pack.push(this.RecordToCard(cardData,1, "common", "ice"))
+        pack.push(this.RecordToCard(cardData,2, "common", "draconic"))
+        pack.push(this.RecordToCard(cardData,3, "common", "generic"))
+        pack.push(this.RecordToCard(cardData,4, "rare"))
+        pack.push(this.RecordToCard(cardData,5, this.randomClass("rare","majestic", 75, 100)))
+        pack.push(this.RecordToCard(cardData,6, this.randomClass("common", "rare", 97,100)))
+        pack.push(this.RecordToCard(cardData,7, "common", "ninja"))
+        pack.push(this.RecordToCard(cardData,8, "common", "ninja"))
+        pack.push(this.RecordToCard(cardData,9, "common", "illusionist"))
+        pack.push(this.RecordToCard(cardData,10, "common", "illusionist"))
+        pack.push(this.RecordToCard(cardData,11, "common", "wizard"))
+        pack.push(this.RecordToCard(cardData,12, "common", "wizard"))
+        pack.push(this.RecordToCard(cardData,13, "common", "wizard"))
         return pack;
     }
 
