@@ -68,9 +68,7 @@ export default class Pack {
     filterByType(type: string, cardData: Record[]): Record[] {
         const filtered = cardData.filter( x => x.card_type.includes(type))
         console.log(filtered);
-        
         return filtered
-
     }
 
     filterByRarity(rarity: string, cardData: Record[]): Record[] {
@@ -99,12 +97,12 @@ export default class Pack {
     ////////////////////////////////////////////////////////////////////////////
     // LAYER 3 METHODS
     ////////////////////////////////////////////////////////////////////////////
-    getCardTR(type: string, rarity: string, cardData: Record[]): Record{
-        let cards_by_type_rarity = this.filterByTypeAndRarity(type, rarity, cardData)
+    getCardT(type: string, cardData: Record[]): Record{
+        let cards_by_type = this.filterByType(type, cardData)
         //function that gets a random number based on length of cards_by_type_rarity
-        let card_index = this.randomCardNumber(cards_by_type_rarity)
+        let card_index = this.randomCardNumber(cards_by_type)
         //function that uses random number to get the corresponding card from the list
-        let card = this.getRandomCard(card_index, cards_by_type_rarity)
+        let card = this.getRandomCard(card_index, cards_by_type)
         return card
         //return the card
     }
@@ -118,11 +116,21 @@ export default class Pack {
         return card
         //return the card
     }
+    getCardTR(type: string, rarity: string, cardData: Record[]): Record{
+        let cards_by_type_rarity = this.filterByTypeAndRarity(type, rarity, cardData)
+        //function that gets a random number based on length of cards_by_type_rarity
+        let card_index = this.randomCardNumber(cards_by_type_rarity)
+        //function that uses random number to get the corresponding card from the list
+        let card = this.getRandomCard(card_index, cards_by_type_rarity)
+        return card
+        //return the card
+    }
+    BuildCard(cardData: Record[], card_in_pack: number, rarity?: string, type?: string): Record {
 
-    BuildCard(cardData: Record[], card_in_pack: number, rarity: string, type?: string): Record {
-
-        if(type) return this.getCardTR(type, rarity, cardData) as Record 
-        else return this.getCardR(rarity, cardData) as Record 
+        if(type && !rarity) return this.getCardT(type, cardData) as Record 
+        else if(!type && rarity) return this.getCardR(rarity, cardData) as Record 
+        else if(type && rarity) return this.getCardTR(type, rarity, cardData) as Record 
+        else { console.log(card_in_pack); return new Record }
         /*
         return {
             record_id: RecordCard.value.id,
@@ -155,8 +163,17 @@ export default class Pack {
         const cardData = useRecords
         pack.push(this.BuildCard(cardData,0, "common", "Assassin"))
         pack.push(this.BuildCard(cardData,1, "common", "Assassin"))
-        pack.push(this.BuildCard(cardData,2, "common", "Assassin"))
-        pack.push(this.BuildCard(cardData,3, "common", "Assassin"))
+        pack.push(this.BuildCard(cardData,2, "common", "Ninja"))
+        pack.push(this.BuildCard(cardData,3, "common", "Ninja"))
+        pack.push(this.BuildCard(cardData,4, "common", "Ranger"))
+        pack.push(this.BuildCard(cardData,5, "common", "Ranger"))
+        pack.push(this.BuildCard(cardData,6, "common", "Generic"))
+        pack.push(this.BuildCard(cardData,7, "common", "Generic"))
+        pack.push(this.BuildCard(cardData,8, "common", "Generic"))
+        pack.push(this.BuildCard(cardData,9, "common", "Equipment"))
+        pack.push(this.BuildCard(cardData,10, this.randomClass("rare","majestic", 75, 100)))
+        pack.push(this.BuildCard(cardData,11, this.randomClass("common", "rare", 97,100)))
+
         /*
         pack.push(this.BuildCard(cardData,0, "common", "generic"))
         pack.push(this.BuildCard(cardData,1, "common", "ice"))

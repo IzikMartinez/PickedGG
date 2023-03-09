@@ -14,7 +14,7 @@ const props = defineProps<{
     picks: Record[]
 }>()
 
-function startDrag(event: DragEvent, pick: card) {
+function startDrag(event: DragEvent, pick: Record) {
     if(event.dataTransfer) {
         event.dataTransfer.dropEffect = 'move';
         event.dataTransfer.effectAllowed = 'move'
