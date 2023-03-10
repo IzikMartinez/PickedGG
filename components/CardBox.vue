@@ -10,6 +10,7 @@
 </template>
 
 <script setup lang="ts">
+import { Record } from 'pocketbase';
 import Picker from '~~/composables/picker';
 
 const PACK_SIZE=14
@@ -31,7 +32,7 @@ const picker: Picker = new Picker(thisdraft, store.getRoundIndex, current_pack_i
 const emit = defineEmits(['cardboxClicked'])
 defineExpose({ timeoutPick })
 
-function pick(card_in_pack_id: number) {
+function pick(card_in_pack_id: Record) {
     current_pack.value?.removeCard(card_in_pack_id)
     picker.pickCards(0, store.getInversePickIndex, store.getRoundIndex, current_pack_index.value)
     store.incrementIndex()
@@ -40,15 +41,15 @@ function pick(card_in_pack_id: number) {
 function timeoutPick() {
   console.log("Caught timeout on: ", current_pack_index.value)
   timerStore.setTimer(store.getInversePickIndex)
-  pick(current_pack_index.value)
+  pick(current_pack.value?.Cards.at(0)!)
 }
 
-function clickPick(card_in_pack_id: number | undefined) {
-  console.log("Cardbox received ", card_in_pack_id)
-  if(card_in_pack_id != null) {
+function clickPick(card_in_pack: Record ) {
+  console.log("Cardbox received ", card_in_pack)
+  if(card_in_pack != null) {
     emit('cardboxClicked')
     timerStore.setTimer(store.getInversePickIndex)
-    pick(card_in_pack_id)
+    pick(card_in_pack)
   }
 }
 

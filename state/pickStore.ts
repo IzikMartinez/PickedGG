@@ -1,9 +1,10 @@
 import {card} from "composables/types/card";
 import {query} from "composables/types/query";
+import { Record } from "pocketbase";
 
 export const usePickStore = defineStore('main', {
     state: () => ({
-        picks: [] as card[],
+        picks: [] as Record[],
         artMap: new Map<string,string>,
         packSize: 14,
         pickIndex: 0,
@@ -16,8 +17,8 @@ export const usePickStore = defineStore('main', {
         getRoundIndex: (state) => state.roundIndex,
     },
     actions: {
-        addPick(payload: card ) { this.picks.push(payload); this.picks.sort((x,y) => x.card_id - y.card_id) },
-        removePick(removed: card) { 
+        addPick(payload: Record) { this.picks.push(payload); this.picks.sort((x,y) => x.card_id - y.card_id) },
+        removePick(removed: Record) { 
             this.picks = this.picks.filter(x => x !== removed)
         },
         incrementIndex() { this.pickIndex++ },

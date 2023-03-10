@@ -25,7 +25,7 @@
     @apply
     flex items-center justify-center text-center
     w-24 h-12 mx-2 p-2 xl:p-0
-    font-display text-white text-2xl bg-red-700 rounded-md
+    font-display text-white text-2xl bg-blue-700 rounded-md
     transition-all duration-100 ease-linear
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <!-- store.cardSizeClass.at(0) returns the class, "card", "card-sml", or "card-big".
   It will return "card" by default.  -->
-  <span :class="cardClass">
+  <span :class="cardClass" @click="addPick">
       <CardTooltip group-hover="xl:scale-100 scale-0 z-0 delay-700" :card-props="cardProps"/>
       <CardImage :record_id="cardProps" :card_name="cardProps.card_name" :cart_art="cardProps.card_art"/>
   </span>
@@ -19,14 +19,13 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'cardClicked', type: number): void
+  (e: 'cardClicked', type: Record): void
 }>()
 
 //const fetchArt = await useFetchArt(cardProps.value.card_id)
 const cardClass = useCardClass() 
 const artPath = ref("")
 
-/*
 function addPick() {
   if (props.pickedFlag === true) {
     console.log("Cannot add ", props.cardProps.card_name, " As it has already been picked.")
@@ -35,17 +34,10 @@ function addPick() {
     picks.addPick(props.cardProps)
     console.log("Added ", props.cardProps.card_name, " (", props.cardProps.pitch, ")")
   }
-  emit('cardClicked', props.cardProps.card_in_pack as number)
+  emit('cardClicked', props.cardProps)
 }
 
-onMounted(()=> {
-  const getArt = useGetArt(props.cardProps.card_id).then( val => artPath.value = val as string)
-})
 
-onUpdated( ()=> {
-  const getArt = useGetArt(props.cardProps.card_id).then( val => artPath.value = val as string)
-})
-*/
 </script>
 
 

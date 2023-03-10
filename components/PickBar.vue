@@ -1,19 +1,32 @@
 <template>
-    <div class="flex flex-row flex-wrap w-screen">
+    <div :class="barStyle">
         <div>
             <PickbarSearch />
         </div>
-        <div class="flex flex-row w-screen">
-            <PickbarBtn text="all"/>
-            <PickbarBtn text="generic"/>
-            <PickbarBtn text="dromai"/>
-            <PickbarBtn text="fai"/>
-            <PickbarBtn text="iyslander"/>
-            <PickbarNextbtn button-text="Next Round"/>
+        <div class="flex flex-row" v-for="hero in heroes">
+            <PickbarBtn :text="hero"/>
         </div>
+            <PickbarNextbtn button-text="Next Round"/>
     </div>
 </template>
 
 <script setup lang="ts"> 
 
+const heroes = useHeroes() 
+const barStyle = computed(()=> "bar-" + useSetName().value)
+
 </script>
+
+<style>
+
+.bar-out {
+    @apply
+    flex flex-row w-screen xl:h-14 h-28 bg-red-900 top-0 left-0 items-center justify-center
+}
+
+.bar-upr {
+    @apply
+    flex flex-row w-screen xl:h-14 h-28 bg-darkteal top-0 left-0 items-center justify-center
+}
+
+</style>

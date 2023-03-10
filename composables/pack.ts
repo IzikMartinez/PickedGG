@@ -65,10 +65,15 @@ export default class Pack {
         pack.push(this.makeCard(data, cardPackID))
     }
 
-    filterByType(type: string, cardData: Record[]): Record[] {
-        const filtered = cardData.filter( x => x.card_type.includes(type))
-        console.log(filtered);
-        return filtered
+    filterByType(type: string[], cardData: Record[], both?: boolean): Record[] {
+        if(type.length === 2 && both === false) 
+            return cardData.filter( x => x.card_type.includes(type[0]) && !x.card_type.includes(type[1]))
+        else if(type.length === 3 && both === false) 
+            return cardData.filter( x => x.card_type.includes(type[0]) && !x.card_type.includes(type[1]) && !x.card_type.includes(type[2]))
+        else if (type.length > 1 && both === true)
+            return cardData.filter( x => x.card_type.includes(type[0]) && x.card_type.includes(type[1]))
+        else 
+            return cardData.filter( x => x.card_type.includes(type[0]))
     }
 
     filterByRarity(rarity: string, cardData: Record[]): Record[] {
@@ -79,8 +84,8 @@ export default class Pack {
     ////////////////////////////////////////////////////////////////////////////
     // LAYER 2 METHODS
     ////////////////////////////////////////////////////////////////////////////
-    filterByTypeAndRarity(type: string, rarity: string, cardData: Record[]): Record[] {
-        const cards_by_type = this.filterByType(type, cardData)
+    filterByTypeAndRarity(type: string[], rarity: string, cardData: Record[], both?: boolean): Record[] {
+        const cards_by_type = this.filterByType(type, cardData, both)
         return this.filterByRarity(rarity, cards_by_type)
     }
 
@@ -97,8 +102,8 @@ export default class Pack {
     ////////////////////////////////////////////////////////////////////////////
     // LAYER 3 METHODS
     ////////////////////////////////////////////////////////////////////////////
-    getCardT(type: string, cardData: Record[]): Record{
-        let cards_by_type = this.filterByType(type, cardData)
+    getCardT(type: string[], cardData: Record[], both?: boolean): Record{
+        let cards_by_type = this.filterByType(type, cardData, both)
         //function that gets a random number based on length of cards_by_type_rarity
         let card_index = this.randomCardNumber(cards_by_type)
         //function that uses random number to get the corresponding card from the list
@@ -116,8 +121,8 @@ export default class Pack {
         return card
         //return the card
     }
-    getCardTR(type: string, rarity: string, cardData: Record[]): Record{
-        let cards_by_type_rarity = this.filterByTypeAndRarity(type, rarity, cardData)
+    getCardTR(type: string[], rarity: string, cardData: Record[], both?: boolean): Record{
+        let cards_by_type_rarity = this.filterByTypeAndRarity(type, rarity, cardData, both)
         //function that gets a random number based on length of cards_by_type_rarity
         let card_index = this.randomCardNumber(cards_by_type_rarity)
         //function that uses random number to get the corresponding card from the list
@@ -125,11 +130,11 @@ export default class Pack {
         return card
         //return the card
     }
-    BuildCard(cardData: Record[], card_in_pack: number, rarity?: string, type?: string): Record {
+    BuildCard(cardData: Record[], card_in_pack: number, rarity?: string, type?: string[], both?: boolean): Record {
 
-        if(type && !rarity) return this.getCardT(type, cardData) as Record 
+        if(type && !rarity) return this.getCardT(type, cardData, both) as Record 
         else if(!type && rarity) return this.getCardR(rarity, cardData) as Record 
-        else if(type && rarity) return this.getCardTR(type, rarity, cardData) as Record 
+        else if(type && rarity) return this.getCardTR(type, rarity, cardData, both) as Record 
         else { console.log(card_in_pack); return new Record }
         /*
         return {
@@ -161,18 +166,20 @@ export default class Pack {
     buildPack(): Record[] {
         let pack: Record[] = []
         const cardData = useRecords
-        pack.push(this.BuildCard(cardData,0, "common", "Assassin"))
-        pack.push(this.BuildCard(cardData,1, "common", "Assassin"))
-        pack.push(this.BuildCard(cardData,2, "common", "Ninja"))
-        pack.push(this.BuildCard(cardData,3, "common", "Ninja"))
-        pack.push(this.BuildCard(cardData,4, "common", "Ranger"))
-        pack.push(this.BuildCard(cardData,5, "common", "Ranger"))
-        pack.push(this.BuildCard(cardData,6, "common", "Generic"))
-        pack.push(this.BuildCard(cardData,7, "common", "Generic"))
-        pack.push(this.BuildCard(cardData,8, "common", "Generic"))
-        pack.push(this.BuildCard(cardData,9, "common", "Equipment"))
-        pack.push(this.BuildCard(cardData,10, this.randomClass("rare","majestic", 75, 100)))
-        pack.push(this.BuildCard(cardData,11, this.randomClass("common", "rare", 97,100)))
+        pack.push(this.BuildCard(cardData,0, "common", ["Assassin", "Ninja", "Equipment"], false))
+        pack.push(this.BuildCard(cardData,1, "common", ["Assassin", "Ninja", "Equipment"], false))
+        pack.push(this.BuildCard(cardData,2, "common", ["Ninja", "Assassin", "Equipment"], false))
+        pack.push(this.BuildCard(cardData,3, "common", ["Ninja", "Assassin", "Equipment"], false))
+        pack.push(this.BuildCard(cardData,4, "common", ["Ranger", "Assassin", "Equipment"], false))
+        pack.push(this.BuildCard(cardData,5, "common", ["Ranger", "Assassin", "Equipment"], false))
+        pack.push(this.BuildCard(cardData,6, "common", ["Generic", "Equipment"], false))
+        pack.push(this.BuildCard(cardData,7, "common", ["Generic", "Equipment"], false))
+        pack.push(this.BuildCard(cardData,8, "common", ["Generic", "Equipment"], false))
+        pack.push(this.BuildCard(cardData,9, "common", ["Equipment"]))
+        pack.push(this.BuildCard(cardData,0, "common", ["Assassin", "Ninja"], true))
+        pack.push(this.getCardR("rare", cardData))
+        pack.push(this.BuildCard(cardData,11, this.randomClass("rare","majestic", 75, 100)))
+        pack.push(this.BuildCard(cardData,12, this.randomClass("common", "rare", 97,100)))
 
         /*
         pack.push(this.BuildCard(cardData,0, "common", "generic"))
@@ -193,20 +200,20 @@ export default class Pack {
         return pack;
     }
 
-    removeCard(cardPackId: number): void {
-        this.cards = this.cards.filter(card => card.card_in_pack != cardPackId)
+    removeCard(cardPackId: Record): void {
+        this.cards = this.cards.filter(card => card !== cardPackId)
         this.picked++
     }
 
-    getRandomCardID(): number {
+    getRandomCardID(): Record | null {
         const index=this.getRandomInt(this.cards.length,0)
-        const card = this.cards.at(index)?.card_in_pack
+        const card = this.cards.at(index)
         if(card) return card
-        else return 0
+        else return null
     }
 
     removeRandomCard() {
-        this.removeCard(this.getRandomCardID())
+        this.removeCard(this.getRandomCardID()!)
     }
 
     getCard(card_pack_id:number): number | undefined {

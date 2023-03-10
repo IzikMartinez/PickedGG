@@ -1,20 +1,29 @@
 <template>
-    <PickBar class="flex flex-row w-screen xl:h-14 h-28 bg-darkteal top-0 left-0 items-center justify-center"/> 
-    <div class="pick-body">
+    <PickBar /> 
+    <div :class="appStyle">
         <slot />
     </div>
 </template>
 
 <script setup lang="ts">
 
+const appStyle = computed(()=> "app-body-" + useSetName().value)
+
 </script>
 
 <style>
+.app-body-out {
+    @apply fixed flex flex-wrap justify-center xl:items-center overflow-auto
+    xl:(top-14) top-28 
+    w-screen h-screen
+    bg-gradient-to-b from-blue-gray-800 to-black
+}
 
-.pick-body {
+.app-body-upr {
     @apply fixed flex flex-wrap justify-center xl:items-center overflow-auto
     xl:(top-14) top-28 
     w-screen h-screen
     bg-gradient-to-b from-red-900 to-black
 }
+
 </style>
