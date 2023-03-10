@@ -22,7 +22,6 @@ const emit = defineEmits<{
   (e: 'cardClicked', type: Record): void
 }>()
 
-//const fetchArt = await useFetchArt(cardProps.value.card_id)
 const cardClass = useCardClass() 
 const artPath = ref("")
 
@@ -36,12 +35,7 @@ function addPick() {
   }
   emit('cardClicked', props.cardProps)
 }
-
-
 </script>
-
-
-
 
 <style scoped>
 
