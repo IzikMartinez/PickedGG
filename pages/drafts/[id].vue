@@ -3,7 +3,7 @@
     <transition name="cardbody" appear>
       <!-- <span v-if="useIsLoading">Loading...</span>
       <span v-else> -->
-        <div class="flex flex-col items-center ">
+        <div class="flex flex-col items-center justify-center w-screen">
           <DraftInfo ref="infoRef"/>
           <span :class="cardBoxClass">
            <CardBox @cardbox-clicked="onCardEvent('clicked')" ref="cardboxRef" :set_name="SET_NAME"/> 
@@ -22,9 +22,6 @@
 <script setup lang="ts">
 
 definePageMeta({ layout: 'default'})
-
-
-
 const supabase = useSupabaseClient()
 const route = useRoute()
 const cardBoxClass = useCardBoxClass()
@@ -35,8 +32,6 @@ const timerStore = useTimerStore()
 const SET_NAME = route.params.id as string
 
 const cardDataStore = useState('card-data', ()=> useRecords)
-
-
 
 store.$subscribe( (mutation, state)=> {
   const router = useRouter()

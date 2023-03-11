@@ -17,7 +17,7 @@
 .app-body-out {
     @apply fixed flex justify-center text-center
     xl:(top-0 left-0)
-    top-0 left-0
+    top-16 left-0
     w-screen h-screen
     overflow-auto
     bg-gradient-to-b from-blue-gray-900 to-black
@@ -27,7 +27,7 @@
 .app-body-upr {
     @apply fixed flex justify-center text-center
     xl:(top-0 left-0)
-    top-0 left-0
+    top-16 left-0
     w-screen h-screen
     overflow-auto
     bg-gradient-to-b from-red-900 to-black
