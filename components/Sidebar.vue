@@ -6,9 +6,9 @@
       <SidebarIcon file-name="card-big" tool-tip="Big cards" @click="setCardSize('large')"></SidebarIcon>
       <SidebarIcon file-name="card-med" tool-tip="Medium cards" @click="setCardSize('medium')"></SidebarIcon>
       <SidebarIcon file-name="card-small" tool-tip="Small cards" @click="setCardSize('small')"></SidebarIcon>
-      <NuxtLink to="/about">
+      <!----<NuxtLink to="/about">
         <SidebarIcon file-name="about" tool-tip="About"></SidebarIcon>
-      </NuxtLink>
+      </NuxtLink>-->
   </div>
 
 </template>
