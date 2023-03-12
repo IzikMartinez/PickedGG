@@ -31,7 +31,7 @@ const timerStore = useTimerStore()
 
 const SET_NAME = route.params.id as string
 
-const cardDataStore = useState('card-data', ()=> useRecords)
+const cardDataStore = useMaster 
 
 store.$subscribe( (mutation, state)=> {
   const router = useRouter()

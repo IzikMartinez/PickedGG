@@ -1,6 +1,5 @@
 import {card} from "composables/types/card";
 import { Record } from "pocketbase";
-import { useRecords } from "./usePocketbase";
 
 
 export default class Pack {
@@ -165,7 +164,8 @@ export default class Pack {
     ////////////////////////////////////////////////////////////////////////////
     buildPack(): Record[] {
         let pack: Record[] = []
-        const cardData = useRecords
+        const cardData = useMaster
+
         if(useSetName().value === "out") {
             pack.push(this.BuildCard(cardData,0, "common", ["Assassin", "Ninja", "Equipment"], false))
             pack.push(this.BuildCard(cardData,1, "common", ["Assassin", "Ninja", "Equipment"], false))

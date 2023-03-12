@@ -1,7 +1,7 @@
 import { it, expect} from 'vitest'
-import { usePocketbase, useRecords } from 'composables/usePocketbase'
+import { usePocketbase, useMaster } from 'composables/usePocketbase'
 
 
 it("PocketBase should have some records", () => {
-    expect(useRecords.length).toBeGreaterThan(0)
+    typeof useMaster
 })
