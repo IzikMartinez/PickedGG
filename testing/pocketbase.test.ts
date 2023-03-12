@@ -3,5 +3,4 @@ import { usePocketbase, useRecords } from 'composables/usePocketbase'
 
 
 it("PocketBase should have some records", () => {
-    typeof useRecords 
 })

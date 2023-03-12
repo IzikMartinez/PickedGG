@@ -1,5 +1,6 @@
 import PocketBase, { Record } from 'pocketbase';
-const pb = new PocketBase('http://194.195.222.191')
+const pb = new PocketBase('https://packonepickone.com');
+
 
 
 export const useRecords = pb.collection('outsiders').getFullList(200 /* batch size */, {

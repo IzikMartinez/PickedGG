@@ -22,7 +22,7 @@
 <script setup lang="ts">
 
 definePageMeta({ layout: 'default'})
-const supabase = useSupabaseClient()
+//const supabase = useSupabaseClient()
 const route = useRoute()
 const cardBoxClass = useCardBoxClass()
 const store = usePickStore()

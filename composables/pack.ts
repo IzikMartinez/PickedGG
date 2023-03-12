@@ -203,9 +203,10 @@ export default class Pack {
     usePack(): Record[] {
         
 
-        const cardDataStore = useState('card-data')
+        const cardDataStore = useState('card-data').value as Record[]
 
-        return this.buildPack(cardDataStore.value as Record[])
+
+        return this.buildPack(cardDataStore)
 
     }
 
