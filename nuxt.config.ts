@@ -22,5 +22,10 @@ export default defineNuxtConfig({
     },
     typescript: {
         shim: false
+    },
+    vite: {
+        build: {
+            target: "esnext"
+        }
     }
 })
