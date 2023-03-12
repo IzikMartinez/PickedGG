@@ -31,7 +31,11 @@ const timerStore = useTimerStore()
 
 const SET_NAME = route.params.id as string
 
-const cardDataStore = useRecords 
+const {data, pending, error} = await useAsyncData('cards',
+  ()=> useRecords
+)
+
+const cardDataStore = useState('card-data', ()=> data)
 
 store.$subscribe( (mutation, state)=> {
   const router = useRouter()
