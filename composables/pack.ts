@@ -11,7 +11,7 @@ export default class Pack {
 
     constructor(pack_id: number) {
         this.pack_id = pack_id
-        this.cards = this.buildPack()
+        this.cards = this.usePack() as Record[]
     }
 
     get Cards() {
@@ -159,15 +159,11 @@ export default class Pack {
         else return ""
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // LAYER 4 METHODS
-    ////////////////////////////////////////////////////////////////////////////
-    buildPack(): Record[] {
+    buildPack(cardData: Record[]) {
         let pack: Record[] = []
-        const cardData = useMaster
 
         if(useSetName().value === "out") {
-            pack.push(this.BuildCard(cardData,0, "common", ["Assassin", "Ninja", "Equipment"], false))
+            pack.push(this.BuildCard(cardData, 0, "common", ["Assassin", "Ninja", "Equipment"], false))
             pack.push(this.BuildCard(cardData,1, "common", ["Assassin", "Ninja", "Equipment"], false))
             pack.push(this.BuildCard(cardData,2, "common", ["Ninja", "Assassin", "Equipment"], false))
             pack.push(this.BuildCard(cardData,3, "common", ["Ninja", "Assassin", "Equipment"], false))
@@ -200,6 +196,14 @@ export default class Pack {
             pack.push(this.BuildCard(cardData,13, "common", ["wizard"], false))
         }
         return pack;
+    }
+    ////////////////////////////////////////////////////////////////////////////
+    // LAYER 4 METHODS
+    ////////////////////////////////////////////////////////////////////////////
+    usePack(): Record[] {
+        
+        return this.buildPack(useRecords)
+
     }
 
     removeCard(cardPackId: Record): void {
