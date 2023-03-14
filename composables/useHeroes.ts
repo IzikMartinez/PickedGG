@@ -1,6 +1,6 @@
 export const useHeroes = ()=> {
     if(useSetName().value === "out"){
-        return ["all", "generic", "arakni", "azalea", "benji", "riptide", "katsu", "uzuri"]
+        return ["all", "generic", "assassin", "ranger", "ninja"]
     }
     else return ["all", "generic", "dromai", "fai", "iyslander"]
 }

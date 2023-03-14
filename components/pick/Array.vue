@@ -7,10 +7,11 @@
 </template>
 
 <script setup lang="ts">
+import { Record } from 'pocketbase';
 import { card } from '~~/composables/types/card';
 
 const props = defineProps<{
-    picks: card[]
+    picks: Record[]
 }>()
 </script>
 

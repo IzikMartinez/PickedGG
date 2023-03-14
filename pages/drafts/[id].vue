@@ -1,30 +1,18 @@
 <template>
   <div id="card-box" >
     <transition name="cardbody" appear>
-      <!-- <span v-if="useIsLoading">Loading...</span>
-      <span v-else> -->
-        <div class="flex flex-col items-center justify-center w-screen">
-          <DraftInfo ref="infoRef"/>
-          <span :class="cardBoxClass">
+      <span v-if="pending">Loading...</span>
+      <span v-else> 
            <CardBox @cardbox-clicked="onCardEvent('clicked')" ref="cardboxRef" :set_name="SET_NAME"/> 
-            <!-- 
-           <Card :card-props="cardData!.at(0) as Record" :picked-flag="false"></Card>
-           <Card :card-props="cardData!.at(12) as Record" :picked-flag="false"></Card>
-           <Card :card-props="cardData!.at(3) as Record" :picked-flag="false"></Card>
-           <Card :card-props="cardData!.at(4) as Record" :picked-flag="false"></Card> -->
-          </span>
-        </div>
-      <!-- </span> -->
+      </span> 
     </transition>
   </div>
 </template>
 
 <script setup lang="ts">
 
-definePageMeta({ layout: 'default'})
 //const supabase = useSupabaseClient()
 const route = useRoute()
-const cardBoxClass = useCardBoxClass()
 const store = usePickStore()
 const styles = useStyleStore()
 const timerStore = useTimerStore()
@@ -72,53 +60,5 @@ async function onCardEvent(eventType: string) {
 </script>
 
 <style scoped>
-
-.cardbox-small {
-  @apply
-  flex flex-wrap
-  xl:w-92rem w-30rem
-  gap-1 justify-center overflow-auto overflow-hidden
-  transition-all duration-150 ease-linear
-}
-.cardbox-medium {
-  @apply
-  flex flex-wrap
-  lg:w-88rem w-30rem
-  gap-1 justify-center overflow-auto overflow-hidden
-  transition-all duration-150 ease-linear
-}
-.cardbox-large {
-  @apply
-  flex flex-wrap
-  xl:w-90rem w-72
-  gap-1 justify-center overflow-auto overflow-hidden
-  transition-all duration-150 ease-linear
-}
-
-.cardbox-left {
-  @apply
-  flex flex-wrap justify-center 
-  xl:w-90 w-60
-  gap-1 overflow-auto
-  transform
-  translate-x-full opacity-0
-  transition-all duration-150 ease-linear
-}
-
-.cardbox-right {
-  @apply
-  flex flex-wrap justify-center 
-  xl:w-90 w-60
-  gap-1 overflow-auto
-  transform
-  -translate-x-full opacity-0
-  transition-all duration-150 ease-linear
-}
-
-
-.cardbody-enter-from { @apply opacity-0 }
-.cardbody-enter-active {@apply transition-all duration-200 ease-linear}
-.cardbody-enter-to {@apply opacity-100}
-
 
 </style>

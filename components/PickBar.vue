@@ -6,7 +6,9 @@
         <div class="flex flex-row" v-for="hero in heroes">
             <PickbarBtn :text="hero"/>
         </div>
+        <NuxtLink :to="draftHome">
             <PickbarNextbtn button-text="Next Round"/>
+        </NuxtLink>
     </div>
 </template>
 
@@ -14,6 +16,7 @@
 
 const heroes = useHeroes() 
 const barStyle = computed(()=> "bar-" + useSetName().value)
+const draftHome = computed(()=> "/drafts/" + useSetName().value)
 
 </script>
 

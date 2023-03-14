@@ -1,11 +1,18 @@
 <template>
-    <div v-for="card in current_pack!.cards" :key="card.card_in_pack">
-      <Card 
-        :card-props="card" 
-        :picked-flag="false"
-        @card-clicked="clickPick">
-        :key="card.card_id"
-      </Card>
+    <div class="fixed flex flex-col w-10/12 xl:(top-0 left-16) top-16 left-0 justify-center items-center">
+      <div>
+        <DraftInfo class="xl:top-0 top-16" ref="infoRef"/>
+      </div>
+      <span :class="cardBoxClass" >
+        <div v-for="card in current_pack!.cards" :key="card.card_in_pack">
+            <Card 
+              :card-props="card" 
+              :picked-flag="false"
+              @card-clicked="clickPick">
+              :key="card.card_id"
+            </Card>
+        </div>
+      </span>
     </div>
 </template>
 
@@ -24,9 +31,10 @@ const thisdraft = useDraft()
 const store = usePickStore()
 const timerStore = useTimerStore()
 
+const cardBoxClass = useCardBoxClass()
 const current_pack_index = computed(()=>store.getPickIndex % PLAYER_NUM)
 const current_pack = computed(()=> { return thisdraft.getRound(store.getRoundIndex)?.getPack(current_pack_index.value)})
-const pick_number = computed(()=> (store.getPickIndex % PACK_SIZE))
+//const pick_number = computed(()=> (store.getPickIndex % PACK_SIZE))
 const picker: Picker = new Picker(thisdraft, store.getRoundIndex, current_pack_index.value)
 
 const emit = defineEmits(['cardboxClicked'])
@@ -57,6 +65,53 @@ function clickPick(card_in_pack: Record ) {
 </script>
 
 <style scoped>
+
+.cardbox-small {
+  @apply
+  flex flex-wrap
+  xl:w-92rem w-30rem
+  gap-1 justify-center overflow-auto overflow-hidden
+  transition-all duration-150 ease-linear
+}
+.cardbox-medium {
+  @apply
+  fixed flex flex-row flex-wrap top-20 left-16 
+  lg:w-11/12 w-30rem h-screen
+  gap-0 items-center justify-center overflow-auto 
+  transition-all duration-150 ease-linear
+}
+.cardbox-large {
+  @apply
+  flex flex-wrap
+  xl:w-90rem w-72
+  gap-1 justify-center overflow-auto overflow-hidden
+  transition-all duration-150 ease-linear
+}
+
+.cardbox-left {
+  @apply
+  fixed flex flex-row flex-wrap top-20 left-16 
+  lg:w-11/12 w-30rem h-screen
+  gap-0 items-center justify-center overflow-auto 
+  transform
+  translate-x-full opacity-0
+  transition-all duration-150 ease-linear
+}
+
+.cardbox-right {
+  @apply  
+  fixed flex flex-row flex-wrap top-20 left-16 
+  lg:w-11/12 w-30rem h-screen
+  gap-0 items-center justify-center overflow-auto 
+  transform
+  -translate-x-full opacity-0
+  transition-all duration-150 ease-linear
+}
+
+.cardbody-enter-from { @apply opacity-0 }
+.cardbody-enter-active {@apply transition-all duration-200 ease-linear}
+.cardbody-enter-to {@apply opacity-100}
+
 
 
 </style>

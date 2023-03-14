@@ -201,13 +201,43 @@ export default class Pack {
     // LAYER 4 METHODS
     ////////////////////////////////////////////////////////////////////////////
     usePack(): Record[] {
-        
+        const cardData = useState('card-data').value as Record[]
+        let pack: Record[] = []
 
-        const cardDataStore = useState('card-data').value as Record[]
+        if(useSetName().value === "out") {
+            pack.push(this.BuildCard(cardData, 0, "common", ["Assassin", "Ninja", "Equipment"], false))
+            pack.push(this.BuildCard(cardData,1, "common", ["Assassin", "Ninja", "Equipment"], false))
+            pack.push(this.BuildCard(cardData,2, "common", ["Ninja", "Assassin", "Equipment"], false))
+            pack.push(this.BuildCard(cardData,3, "common", ["Ninja", "Assassin", "Equipment"], false))
+            pack.push(this.BuildCard(cardData,4, "common", ["Ranger", "Assassin", "Equipment"], false))
+            pack.push(this.BuildCard(cardData,5, "common", ["Ranger", "Assassin", "Equipment"], false))
+            pack.push(this.BuildCard(cardData,6, "common", ["Generic", "Equipment"], false))
+            pack.push(this.BuildCard(cardData,7, "common", ["Generic", "Equipment"], false))
+            pack.push(this.BuildCard(cardData,8, "common", ["Generic", "Equipment"], false))
+            pack.push(this.BuildCard(cardData,9, "common", ["Equipment"]))
+            pack.push(this.BuildCard(cardData,0, "common", ["Assassin", "Ninja"], true))
+            pack.push(this.getCardR("rare", cardData))
+            pack.push(this.BuildCard(cardData,11, this.randomClass("rare","majestic", 75, 100)))
+            pack.push(this.BuildCard(cardData,12, this.randomClass("common", "rare", 97,100)))
+        }
 
-
-        return this.buildPack(cardDataStore)
-
+        else {
+            pack.push(this.BuildCard(cardData,0, "common", ["generic"], false))
+            pack.push(this.BuildCard(cardData,1, "common", ["ice"], false))
+            pack.push(this.BuildCard(cardData,2, "common", ["draconic"], false))
+            pack.push(this.BuildCard(cardData,3, "common", ["generic"], false))
+            pack.push(this.BuildCard(cardData,4, "rare"))
+            pack.push(this.BuildCard(cardData,5, this.randomClass("rare","majestic", 75, 100)))
+            pack.push(this.BuildCard(cardData,6, this.randomClass("common", "rare", 97,100)))
+            pack.push(this.BuildCard(cardData,7, "common", ["ninja"], false))
+            pack.push(this.BuildCard(cardData,8, "common", ["ninja"], false))
+            pack.push(this.BuildCard(cardData,9, "common", ["illusionist"], false))
+            pack.push(this.BuildCard(cardData,10, "common", ["illusionist"], false))
+            pack.push(this.BuildCard(cardData,11, "common", ["wizard"], false))
+            pack.push(this.BuildCard(cardData,12, "common", ["wizard"], false))
+            pack.push(this.BuildCard(cardData,13, "common", ["wizard"], false))
+        }
+        return pack;
     }
 
     removeCard(cardPackId: Record): void {

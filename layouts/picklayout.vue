@@ -6,9 +6,7 @@
 </template>
 
 <script setup lang="ts">
-
-const appStyle = computed(()=> "app-body-" + useSetName().value)
-
+    const appStyle = computed(()=> "app-body-" + useSetName().value)
 </script>
 
 <style>

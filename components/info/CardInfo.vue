@@ -19,7 +19,7 @@ const cardInfo = reactive({
 
 <style scoped>
 .info-box {
-  @apply relative w-16 h-8 bg-gray-600 shadow-2xl
+  @apply fixed w-16 h-8 bg-gray-600 shadow-2xl top-8
 }
 .info-text {
   @apply text-fuchsia-300 font-sans font-semibold
