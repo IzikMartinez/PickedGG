@@ -40,7 +40,6 @@ onBeforeMount(()=>{
         }
         return pack
     })
-
     packs.value.forEach(
         pack => pack.forEach(card => picks.addPick(card as Record)))
 })

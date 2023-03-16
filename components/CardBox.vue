@@ -82,8 +82,8 @@ function clickPick(card_in_pack: Record ) {
 }
 .cardbox-medium {
   @apply
-  fixed flex flex-row flex-wrap top-20 left-16 
-  lg:w-11/12 w-30rem 
+  fixed flex flex-row flex-wrap top-20 left-16 pb-16
+  lg:w-11/12 w-30rem h-screen
   gap-1 items-center justify-center overflow-auto 
   transition-all duration-150 ease-linear
 }
