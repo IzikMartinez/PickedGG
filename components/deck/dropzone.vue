@@ -7,6 +7,7 @@
     >
         <span v-if="deck.length === 0"> Drag cards here... </span>
         <span v-else>
+            {{ decksize }}/30
             <span v-for="card in deck">
                 <DeckCard :card-props="card" @emitted-card-name="handleEmit"/>
             </span>
@@ -27,7 +28,11 @@ type deck_card = {
 const deck = ref<Array<deck_card>>([])
 const cardName = ref("")
 
-const decksize = ()=> useState('deck-size', ()=> ref(deck.value.length))
+const decksize = computed(()=> {
+    let sum = 0; 
+    deck.value.forEach(deckcard => sum += deckcard.card_number)
+    return sum
+})
 const bladeSwitch = useBladeSwitch()
 const bladeClass = computed(()=> bladeSwitch.value ? 'blade' : 'blade-clps')
 const btnClass = computed(()=> bladeSwitch.value ? "blade-btn-col" : "blade-btn")
