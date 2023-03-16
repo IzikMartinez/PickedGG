@@ -19,7 +19,7 @@ export const usePickStore = defineStore('main', {
     actions: {
         addPick(payload: Record) { this.picks.push(payload); this.picks.sort((x,y) => x.card_id - y.card_id) },
         removePick(removed: Record) {  
-            const index = this.picks.findIndex(x => x.id === removed.id)
+            let index = this.picks.findIndex(card => card.id === removed.id)
             if (index > -1)  {
                 this.picks.splice(index, 1)
             }
