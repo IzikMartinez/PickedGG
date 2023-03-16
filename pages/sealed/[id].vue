@@ -1,7 +1,7 @@
 <template>
     <NuxtLayout name="deckbuilder">
         <span v-if="pending">Loading..</span>
-        <span v-else class="flex flex-row flex-wrap w-screen justify-center items-center top-16 left-0">
+        <span v-else class="fixed flex flex-row flex-wrap w-10/12 h-screen top-0 left-0 my-20 overflow-y-scroll overflow-x-hidden">
                 <div v-for="card in searchPicks" class="overflow-auto" @dragstart="startDrag($event, card)">
                     <Card :card-props="card" :picked-flag="true" />
                 </div>

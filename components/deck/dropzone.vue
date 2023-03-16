@@ -97,7 +97,7 @@ function addCardToDeck(card: Record) {
 
 <style>
 .blade {
- @apply fixed flex w-70 xl:w-80 h-screen right-0 xl:top-14 top-28 bg-teal-700 hover:bg-teal-400 text-center justify-center font-display text-xl text-white
+ @apply fixed flex w-70 xl:w-90 h-screen right-0 xl:top-14 top-28 bg-teal-700 hover:bg-teal-400 text-center justify-center font-display text-xl text-white
  transition-all duration-150
  transform z-0
 }

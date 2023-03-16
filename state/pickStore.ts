@@ -18,8 +18,11 @@ export const usePickStore = defineStore('main', {
     },
     actions: {
         addPick(payload: Record) { this.picks.push(payload); this.picks.sort((x,y) => x.card_id - y.card_id) },
-        removePick(removed: Record) { 
-            this.picks = this.picks.filter(x => x !== removed)
+        removePick(removed: Record) {  
+            const index = this.picks.findIndex(x => x.id === removed.id)
+            if (index > -1)  {
+                this.picks.splice(index, 1)
+            }
         },
         incrementIndex() { this.pickIndex++ },
 
