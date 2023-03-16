@@ -4,7 +4,6 @@
     @drop="onDrop($event)"
     @dragover.prevent
     @dragenter.prevent
-    @click="bladeSwitch = !bladeSwitch"
     >
         <span v-if="deck.length === 0"> </span>
         <span v-else>
