@@ -7,8 +7,6 @@
 </template>
 
 <script setup lang="ts">
-import { card } from 'composables/types/card';
-
 
 const picks = computed( useSearchPicks )
 

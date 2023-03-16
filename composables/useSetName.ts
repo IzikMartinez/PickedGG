@@ -1,1 +1,1 @@
-export const useSetName = ()=> useState('set-name', ()=> ref('out'))
+export const useSetName = ()=> useState('set-name', ()=> 'out')

@@ -1,12 +1,16 @@
 <template>
-    <NuxtLink :to="link">
-    <img
-        :src="path"
-        :class="setClass"
-        @click="handleClick"
-        @mouseenter="useSetName().value = setname"
-    >
-    </NuxtLink>
+    <span v-if="setPickedFlag" class="flex flex-col justify-center ">
+        <NuxtLink :to="DraftLink">
+            <MainDraftsealed btn-text="draft" :set="setname"/>
+        </NuxtLink>
+        <MainSetimg :setname="setname" @click="setPickedFlag = false"/>
+        <NuxtLink :to="SealedLink">
+            <MainDraftsealed btn-text="sealed" :set="setname"/>
+        </NuxtLink>
+    </span>
+    <span v-else>
+        <MainSetimg :setname="setname" @click="setPickedFlag = true"/>
+    </span>
 </template>
 
 <script setup lang="ts">
@@ -14,28 +18,11 @@ const props = defineProps<{
     setname: string
 }>()
 
-const link = computed(()=> "drafts/" + props.setname)
-
-const path = computed(()=> props.setname + "_logo.png")
-
-const setClass = computed(()=> {
-    if(props.setname == 'out')
-        return "out"
-    else if(props.setname === 'upr') 
-        return "upr"
-    else return "black"
-})
+const setPickedFlag = ref(false)
+const DraftLink = computed(()=> "drafts/" + props.setname)
+const SealedLink = computed(()=> "sealed/" + props.setname)
 
 function handleClick() {
-    
+   setPickedFlag.value = true 
 }
 </script>
-
-<style scoped>
-.out {
-    @apply w-230 h-80 mx-2 my-4 p-6 rounded-3xl bg-outsiders
-}
-.upr {
-    @apply w-230 h-80 mx-2 my-4 p-6 rounded-3xl bg-uprising
-}
-</style>

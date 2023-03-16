@@ -2,40 +2,35 @@
     <div :class="cardClass">
         <DeckNum :count="cardProps.card_number"/>
         <DeckSvc :name="cardProps.card_name" :pitch="cardProps.pitch" :cost="cardProps.cost"/>
-        <DeckRemovebtn @click="handleClick"/>
+        <DeckRemovebtn @click="removeClick"/>
     </div>
 </template>
 
 <script setup lang="ts">
+import { Record } from 'pocketbase';
+
 type deck_card = {
-    card_id: number
-    card_name: string
-    card_type: string[] | null
-    pitch: number
-    cost: number
-    power: number | null
-    defense: number | null
-    rarity: string
-    path?: string
+    card: Record
     card_number: number
 }
 
 const props = defineProps<{
-    cardProps: deck_card,
+    cardProps: Record,
+    cardNumber: number
 }>()
 const emits = defineEmits<{
-    (e: 'emittedCardName', type: number): void
+    (e: 'emittedCardName', type: string): void
 }>()
 
 const bladeSwitch = useBladeSwitch()
 const cardClass = computed(()=> bladeSwitch.value ? 'card' : 'card-clps')
 
-function handleClick() {
+function removeClick() {
     usePickStore().addPick(props.cardProps)
-    if(props.cardProps.card_number > 1)
-        props.cardProps.card_number--
+    if(props.cardProps.cardNumber > 1)
+        props.cardProps.cardNumber--
     else
-        emits('emittedCardName', props.cardProps.card_id)
+        emits('emittedCardName', props.cardProps.id)
 }
 </script>
 

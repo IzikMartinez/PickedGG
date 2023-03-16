@@ -46,10 +46,17 @@ function pick(card_in_pack_id: Record) {
     store.incrementIndex()
 }
 
+function getRandomInt(max: number, min: number): number {
+        let num = Math.floor(Math.random() * max)// start at 1
+        return num
+        //return this.lcg(21, 3, 7, seed, 3)[1] % max
+    }
+
 function timeoutPick() {
   console.log("Caught timeout on: ", current_pack_index.value)
   timerStore.setTimer(store.getInversePickIndex)
-  pick(current_pack.value?.Cards.at(0)!)
+  const idx = getRandomInt(current_pack.value!.Cards.length, 0)
+  pick(current_pack.value?.Cards.at(idx)!)
 }
 
 function clickPick(card_in_pack: Record ) {
@@ -76,8 +83,8 @@ function clickPick(card_in_pack: Record ) {
 .cardbox-medium {
   @apply
   fixed flex flex-row flex-wrap top-20 left-16 
-  lg:w-11/12 w-30rem h-screen
-  gap-0 items-center justify-center overflow-auto 
+  lg:w-11/12 w-30rem 
+  gap-1 items-center justify-center overflow-auto 
   transition-all duration-150 ease-linear
 }
 .cardbox-large {
@@ -91,7 +98,7 @@ function clickPick(card_in_pack: Record ) {
 .cardbox-left {
   @apply
   fixed flex flex-row flex-wrap top-20 left-16 
-  lg:w-11/12 w-30rem h-screen
+  lg:w-11/12 w-30rem 
   gap-0 items-center justify-center overflow-auto 
   transform
   translate-x-full opacity-0
@@ -101,7 +108,7 @@ function clickPick(card_in_pack: Record ) {
 .cardbox-right {
   @apply  
   fixed flex flex-row flex-wrap top-20 left-16 
-  lg:w-11/12 w-30rem h-screen
+  lg:w-11/12 w-30rem 
   gap-0 items-center justify-center overflow-auto 
   transform
   -translate-x-full opacity-0

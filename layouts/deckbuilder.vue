@@ -1,8 +1,8 @@
 <template>
-    <DeckBar /> 
-    <div :class="appStyle">
-        <slot />
-    </div>
+        <DeckBar/> 
+        <div :class="appStyle">
+            <slot />
+        </div>
 </template>
 
 <script setup lang="ts">

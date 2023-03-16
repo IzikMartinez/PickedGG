@@ -1,5 +1,5 @@
 <template>
-    <span class="timerBug">{{timerStore.getMinutes}}:{{timerStore.getSeconds}}</span>
+    <span class="timerBug">{{timerStore.getMinutes}}:{{seconds}}</span>
 </template>
 
 <script setup lang="ts">
@@ -7,6 +7,10 @@
     const emit = defineEmits(['timeoutTimer'])
     let clickedFlag=false
 
+    const seconds = computed(()=>{
+        if (timerStore.getSeconds < 10) return "0" + timerStore.getSeconds.toString()
+        else return timerStore.getSeconds
+    })
 
    onMounted(()=> {
     timerStore.setTimer(14)

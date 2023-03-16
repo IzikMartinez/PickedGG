@@ -1,12 +1,14 @@
 <template>
-  <div id="card-box" >
-    <transition name="cardbody" appear>
-      <span v-if="pending">Loading...</span>
-      <span v-else> 
-           <CardBox @cardbox-clicked="onCardEvent('clicked')" ref="cardboxRef" :set_name="SET_NAME"/> 
-      </span> 
-    </transition>
-  </div>
+  <NuxtLayout>
+    <div id="card-box" >
+      <transition name="cardbody" appear>
+        <span v-if="pending">Loading...</span>
+        <span v-else> 
+            <CardBox @cardbox-clicked="onCardEvent('clicked')" ref="cardboxRef" :set_name="SET_NAME"/> 
+        </span> 
+      </transition>
+    </div>
+  </NuxtLayout>
 </template>
 
 <script setup lang="ts">
@@ -22,8 +24,9 @@ const SET_NAME = route.params.id as string
 const {data, pending, error} = await useAsyncData('cards',
   ()=> useRecords
 )
-
 const cardDataStore = useState('card-data', ()=> data)
+
+definePageMeta({ layout: "default"})
 
 store.$subscribe( (mutation, state)=> {
   const router = useRouter()

@@ -21,12 +21,12 @@ const barStyle = computed(()=> "bar-" + useSetName().value)
 
 .bar-out {
     @apply
-    flex flex-row w-screen xl:h-14 h-28 bg-red-900 top-0 left-0 items-center justify-center
+    fixed flex flex-row w-screen xl:h-14 h-28 bg-red-900 top-0 left-0 items-center justify-center
 }
 
 .bar-upr {
     @apply
-    flex flex-row w-screen xl:h-14 h-28 bg-darkteal top-0 left-0 items-center justify-center
+    fixed flex flex-row w-screen xl:h-14 h-28 bg-darkteal top-0 left-0 items-center justify-center
 }
 
 </style>
