@@ -7,7 +7,7 @@
     >
         <span v-if="deck.length === 0"> Drag cards here... </span>
         <span v-else>
-            {{ decksize }}/30
+            <DeckSize :decksize="decksize"/>
             <span v-for="card in deck">
                 <DeckCard :card-props="card" @emitted-card-name="handleEmit"/>
             </span>
