@@ -5,7 +5,7 @@
     @dragover.prevent
     @dragenter.prevent
     >
-        <span v-if="deck.length === 0"> </span>
+        <span v-if="deck.length === 0"> Drag cards here... </span>
         <span v-else>
             <span v-for="card in deck">
                 <DeckCard :card-props="card" @emitted-card-name="handleEmit"/>
@@ -96,7 +96,7 @@ function addCardToDeck(card: Record) {
 
 <style>
 .blade {
- @apply fixed flex w-70 xl:w-90 h-screen right-0 xl:top-14 top-28 bg-teal-700 hover:bg-teal-400 text-center justify-center font-display text-xl text-white
+ @apply fixed flex w-70 xl:w-90 h-screen right-0 xl:top-14 top-28 bg-blue-gray-600 hover:bg-blue-gray-700 text-center justify-center font-display text-xl text-white
  transition-all duration-150
  transform z-0
 }
