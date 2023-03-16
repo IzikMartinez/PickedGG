@@ -92,7 +92,7 @@ function addCardToDeck(card: Record) {
     } else {
         const deckcard = buildDeckCard(card)
         deck.value.push(deckcard)
-        deck.value.sort((x, y) => x.card.card_id - y.card.card_id)
+        deck.value.sort((x, y) => x.card.pitch - y.card.pitch)
     }
     usePickStore().removePick(card)
 }
