@@ -16,83 +16,44 @@
 </template>
 
 <script setup lang="ts">
+import { Record } from 'pocketbase';
+
 
 // Nuxt went crazy and wouldn't let me use an imported card type, so I had to recreate it in-component 
 type deck_card = {
-    card_id: number
-    card_name: string
-    card_type: string[] | null
-    pitch: number
-    cost: number
-    power: number | null
-    defense: number | null
-    rarity: string
-    path?: string
+    card: Record
     card_number: number
 }
-
-type card = {
-    card_id: number
-    card_in_pack?: number
-    card_name: string
-    card_type: string[] | null
-    pitch: number
-    cost: number
-    power: number | null
-    defense: number | null
-    rarity: string
-    picked?: boolean
-    path?: string
-}
-
 
 const deck = ref<Array<deck_card>>([])
 const cardName = ref("")
 
 const decksize = ()=> useState('deck-size', ()=> ref(deck.value.length))
-
 const bladeSwitch = useBladeSwitch()
 const bladeClass = computed(()=> bladeSwitch.value ? 'blade' : 'blade-clps')
 const btnClass = computed(()=> bladeSwitch.value ? "blade-btn-col" : "blade-btn")
 
-/* FilterFunction(card) {
-    name = card.name
-    if(!names.find(name)) 
-        names.push(name)
-    else 
-        card.number++
-    
-}
-*/
-// filteredArray = deck.filter(FilterFunction)
+
 function onDrop(event: DragEvent) {
     if(event.dataTransfer) {
         cardName.value = event.dataTransfer.getData('cardData')
-        const card = usePickStore().picks.find(x=> x.card_id.toString() === cardName.value) as card
+        const card = usePickStore().picks.find(x=> x.card_id.toString() === cardName.value) as Record
         if(card) {
             addCardToDeck(card)
         }
     }
 }
 
-function handleEmit(cardID: number) {
-    const index = deck.value.findIndex(x => x.card_id === cardID)
+function handleEmit(cardID: string) {
+    const index = deck.value.findIndex(x => x.card.id === cardID)
     if (index > -1)  {
         deck.value.splice(index, 1)
     }
 }
 
-function convertToDeckcard(card: card): deck_card {
-    const new_card = {
-        card_id: card.card_id,
-        card_name: card.card_name,
-        card_type: card.card_type,
-        pitch: card.pitch,
-        cost: card.cost,
-        power: card.power,
-        defense: card.defense,
-        rarity: card.rarity,
-        path: card.path,
+function buildDeckCard(card: Record): deck_card {
+    const new_card: deck_card = {
+        card,
         card_number: 1
     }
     return new_card
@@ -101,14 +62,14 @@ function convertToDeckcard(card: card): deck_card {
 
 
 /////////////////   INCREMENT CARD COUNTER ///////////////////////////////////////////
-function existsFlag(card: card) {
-    if(deck.value.find(x => x.card_id === card.card_id)) return true
+function existsFlag(card: Record) {
+    if(deck.value.find(x => x.card.card_id === card.card_id)) return true
     else return false
 }
 
-function findIndex(card: card) {
-    if( deck.value.findIndex(x => x.card_id === card.card_id) > -1) 
-        return deck.value.findIndex(x => x.card_id === card.card_id) 
+function findIndex(card: Record) {
+    if( deck.value.findIndex(x => x.card.card_id === card.card_id) > -1) 
+        return deck.value.findIndex(x => x.card.card_id === card.card_id) 
     else
         return -1
 }
@@ -117,7 +78,7 @@ function incrementCount(index: number) {
     deck.value.at(index)!.card_number += 1
 }
 
-function addCardToDeck(card: card) {
+function addCardToDeck(card: Record) {
     // check if the card is already in the deck
     if(existsFlag(card)) {
         // then find index of existing card
@@ -125,9 +86,9 @@ function addCardToDeck(card: card) {
         // increment card_num
         incrementCount(index)
     } else {
-        const deckcard = convertToDeckcard(card)
+        const deckcard = buildDeckCard(card)
         deck.value.push(deckcard)
-        deck.value.sort((x, y) => x.card_id - y.card_id)
+        deck.value.sort((x, y) => x.card.card_id - y.card.card_id)
     }
     usePickStore().removePick(card)
 }
