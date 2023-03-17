@@ -154,6 +154,13 @@ function randomClass(class1: string, class2: string, odds1: number, odds2: numbe
     else return ""
 }
 
+function randomClass3(class1: string, class2: string, class3: string, odds1: number, odds2: number): string {
+    const number = getRandomInt(100,1)
+    if(number <= odds1) return class1
+    else if(number > odds1 && number <= odds2) return class2
+    else return class3
+}
+
 function buildPack(cardData: Record[]) {
     let pack: Record[] = []
 
@@ -170,7 +177,7 @@ function buildPack(cardData: Record[]) {
         pack.push(BuildCard(cardData,9, "common", ["Equipment"]))
         pack.push(BuildCard(cardData,0, "common", ["Assassin", "Ninja", "Equipment"], true))
         pack.push(getCardR("rare", cardData))
-        pack.push(BuildCard(cardData,11, randomClass("rare","majestic", 83, 100)))
+        pack.push(BuildCard(cardData,11, randomClass3("rare","majestic", "legendary", 83, 98)))
         pack.push(BuildCard(cardData,12, randomClass("common", "rare", 92,100)))
     }
 

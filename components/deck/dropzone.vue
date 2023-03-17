@@ -4,6 +4,7 @@
     @drop="onDrop($event)"
     @dragover.prevent
     @dragenter.prevent
+    @click="bladeSwitch = !bladeSwitch"
     >
         <span v-if="deck.length === 0"> Drag cards here... </span>
         <span v-else class="flex flex-col items-center h-screen pt-4">
@@ -107,7 +108,7 @@ function addCardToDeck(card: Record) {
 }
 
 .blade-clps {
- @apply fixed flex w-10 h-screen right-0 xl:top-14 top-28 bg-teal-700 hover:bg-teal-400 text-center justify-center font-display text-xl text-white
+ @apply fixed flex w-10 xl:w-80 h-screen right-0 xl:top-14 top-28 bg-blue-gray-600 xl:hover:bg-blue-gray-600  hover:bg-teal-600 text-center justify-center font-display text-xl text-white
  transition-all duration-150
 }
 
