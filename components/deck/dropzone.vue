@@ -6,7 +6,7 @@
     @dragenter.prevent
     >
         <span v-if="deck.length === 0"> Drag cards here... </span>
-        <span v-else>
+        <span v-else class="flex flex-col items-center h-screen pt-4">
             <DeckSize :decksize="decksize"/>
             <span v-for="card in deck">
                 <DeckCard :card-props="card" @emitted-card-name="handleEmit"/>

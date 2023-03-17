@@ -14,10 +14,10 @@ const textColor = computed(()=> props.decksize < 30 ? "bad": "good" )
 
 <style scoped>
 .good {
-    @apply text-white
+    @apply flex w-30 h-10 bg-green-600 text-white text-center items-center justify-center text-3xl rounded-md
 }
 
 .bad {
-    @apply text-red-600
+    @apply flex w-30 h-10 bg-red-600 text-white text-center items-center justify-center text-3xl rounded-md
 }
 </style>
