@@ -16,7 +16,7 @@ import Pack from '~~/composables/pack';
 
 const route = useRoute()
 const picks = usePickStore()
-useCardClass().value = 'card-large'
+useCardClass().value = 'card-small'
 const SET_NAME = route.params.id as string
 const {data, pending, error} = await useAsyncData('cards',
   ()=> useRecords
