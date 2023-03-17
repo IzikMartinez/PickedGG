@@ -179,7 +179,7 @@
          id="tspan42619"
          x="119.39765"
          y="33.941349"
-         style="font-size:14.6667px;fill:#000000;fill-opacity:1">{{name}}</tspan></text>
+         class="font-display fill-black text-md">{{cardName}}</tspan></text>
   </g>
 </svg>
 </template>
@@ -195,6 +195,15 @@ const barcolor = computed(()=> {
    if (props.pitch===3) return "#0999d7"; 
    else if(props.pitch === 2) return "#ffed00"
    else if(props.pitch === 1) return "#aa2020" })
+
+const cardName = computed(()=> {
+    if(props.name.includes("Shifting Perspective")) 
+        return "Msk Shifting Perspective"
+    else if(props.name.includes("Malicious Manifestations")) 
+        return "Msk Malicious Manifestations"
+    else
+        return props.name
+})
 
 const size = {
    "width": 222.00002,

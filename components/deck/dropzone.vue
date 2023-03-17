@@ -31,7 +31,10 @@ const cardName = ref("")
 
 const decksize = computed(()=> {
     let sum = 0; 
-    deck.value.forEach(deckcard => sum += deckcard.card_number)
+    deck.value.forEach(deckcard =>  {
+        if(!deckcard.card.card_type.includes("Equipment")) sum += deckcard.card_number
+    }
+    )
     return sum
 })
 const bladeSwitch = useBladeSwitch()
