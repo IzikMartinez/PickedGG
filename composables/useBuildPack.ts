@@ -161,44 +161,7 @@ function randomClass3(class1: string, class2: string, class3: string, odds1: num
     else return class3
 }
 
-function buildPack(cardData: Record[]) {
-    let pack: Record[] = []
 
-    if(useSetName().value === "out") {
-        pack.push(BuildCard(cardData, 0, "common", ["Assassin", "Ninja", "Equipment"], false))
-        pack.push(BuildCard(cardData,1, "common", ["Assassin", "Ninja", "Equipment"], false))
-        pack.push(BuildCard(cardData,2, "common", ["Ninja", "Assassin", "Equipment"], false))
-        pack.push(BuildCard(cardData,3, "common", ["Ninja", "Assassin", "Equipment"], false))
-        pack.push(BuildCard(cardData,4, "common", ["Ranger", "Assassin", "Equipment"], false))
-        pack.push(BuildCard(cardData,5, "common", ["Ranger", "Assassin", "Equipment"], false))
-        pack.push(BuildCard(cardData,6, "common", ["Generic", "Equipment"], false))
-        pack.push(BuildCard(cardData,7, "common", ["Generic", "Equipment"], false))
-        pack.push(BuildCard(cardData,8, "common", ["Generic", "Equipment"], false))
-        pack.push(BuildCard(cardData,9, "common", ["Equipment"]))
-        pack.push(BuildCard(cardData,0, "common", ["Assassin", "Ninja", "Equipment"], true))
-        pack.push(getCardR("rare", cardData))
-        pack.push(BuildCard(cardData,11, randomClass3("rare","majestic", "legendary", 81, 98)))
-        pack.push(BuildCard(cardData,12, randomClass("common", "rare", 92,100)))
-    }
-
-    else {
-        pack.push(BuildCard(cardData,0, "common", ["generic"], false))
-        pack.push(BuildCard(cardData,1, "common", ["ice"], false))
-        pack.push(BuildCard(cardData,2, "common", ["draconic"], false))
-        pack.push(BuildCard(cardData,3, "common", ["generic"], false))
-        pack.push(BuildCard(cardData,4, "rare"))
-        pack.push(BuildCard(cardData,5, randomClass("rare","majestic", 75, 100)))
-        pack.push(BuildCard(cardData,6, randomClass("common", "rare", 97,100)))
-        pack.push(BuildCard(cardData,7, "common", ["ninja"], false))
-        pack.push(BuildCard(cardData,8, "common", ["ninja"], false))
-        pack.push(BuildCard(cardData,9, "common", ["illusionist"], false))
-        pack.push(BuildCard(cardData,10, "common", ["illusionist"], false))
-        pack.push(BuildCard(cardData,11, "common", ["wizard"], false))
-        pack.push(BuildCard(cardData,12, "common", ["wizard"], false))
-        pack.push(BuildCard(cardData,13, "common", ["wizard"], false))
-    }
-    return pack;
-}
 ////////////////////////////////////////////////////////////////////////////
 // LAYER 4 METHODS
 ////////////////////////////////////////////////////////////////////////////
@@ -216,10 +179,10 @@ export const useBuildPack = function(): Record[] {
         pack.push(BuildCard(cardData,6, "common", ["Generic", "Equipment"], false))
         pack.push(BuildCard(cardData,7, "common", ["Generic", "Equipment"], false))
         pack.push(BuildCard(cardData,8, "common", ["Generic", "Equipment"], false))
-        pack.push(getCardT(["Equipment"], cardData, false))
+        pack.push(getCardTR(["Equipment"], "common", cardData, false))
         pack.push(getCardTR(["Assassin", "Ninja", "Equipment"], "common", cardData, true))
         pack.push(getCardR("rare", cardData))
-        pack.push(BuildCard(cardData,11, randomClass("rare","majestic", 75, 100)))
+        pack.push(BuildCard(cardData,11, randomClass3("rare","majestic", "legendary", 81, 98)))
         pack.push(BuildCard(cardData,12, randomClass("common", "rare", 97,100)))
     }
 
