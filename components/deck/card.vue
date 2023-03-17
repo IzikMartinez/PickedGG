@@ -25,6 +25,7 @@ const emits = defineEmits<{
 const bladeSwitch = useBladeSwitch()
 const cardClass = computed(()=> bladeSwitch.value ? 'card' : 'card-clps')
 
+
 function removeClick() {
     usePickStore().addPick(props.cardProps.card)
     if(props.cardProps.card_number > 1)
