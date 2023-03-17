@@ -1,7 +1,7 @@
 <template>
     <NuxtLayout name="sealed">
         <span v-if="pending">Loading..</span>
-        <span v-else class="fixed flex flex-row flex-wrap w-10/12 h-screen top-16 left-20 pb-16 overflow-y-scroll overflow-x-hidden z-0">
+        <span v-else class="fixed flex flex-row flex-wrap w-10/12 h-screen xl:(top-16 left-18 pb-16) overflow-y-scroll overflow-x-hidden z-0">
                 <div v-for="card in searchPicks" class="overflow-auto" @dragstart="startDrag($event, card)">
                     <Card :card-props="card" :picked-flag="true" />
                 </div>
