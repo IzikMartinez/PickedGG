@@ -36,7 +36,7 @@ function startDrag(event: DragEvent, pick: Record) {
 onBeforeMount(()=>{
     const packs = computed(()=>{
         let pack = [[]] as [Record[]]
-        for(var i = 0; i<1; i++) {
+        for(var i = 0; i<6; i++) {
             pack.push(useBuildPack())
         }
         return pack
