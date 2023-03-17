@@ -1,8 +1,8 @@
 <template>
   <div class="nav-bar">
-      <NuxtLink to="/">
+     <!--- <NuxtLink to="/">
         <SidebarIcon file-name="home" tool-tip="Go home"></SidebarIcon>
-      </NuxtLink>
+      </NuxtLink> -->
       <SidebarIcon file-name="card-big" tool-tip="Big cards" @click="setCardSize('large')"></SidebarIcon>
       <SidebarIcon file-name="card-med" tool-tip="Medium cards" @click="setCardSize('medium')"></SidebarIcon>
       <SidebarIcon file-name="card-small" tool-tip="Small cards" @click="setCardSize('small')"></SidebarIcon>

@@ -170,8 +170,8 @@ function buildPack(cardData: Record[]) {
         pack.push(BuildCard(cardData,9, "common", ["Equipment"]))
         pack.push(BuildCard(cardData,0, "common", ["Assassin", "Ninja", "Equipment"], true))
         pack.push(getCardR("rare", cardData))
-        pack.push(BuildCard(cardData,11, randomClass("rare","majestic", 75, 100)))
-        pack.push(BuildCard(cardData,12, randomClass("common", "rare", 97,100)))
+        pack.push(BuildCard(cardData,11, randomClass("rare","majestic", 83, 100)))
+        pack.push(BuildCard(cardData,12, randomClass("common", "rare", 92,100)))
     }
 
     else {

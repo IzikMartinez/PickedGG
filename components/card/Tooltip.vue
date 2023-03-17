@@ -18,7 +18,7 @@ const props= defineProps<{
 .tooltip {
   @apply 
   absolute 
-  w-40 m-2 p-2 min-w-max rounded-md shadow-md bg-gray-900
+  w-40 m-2 p-2 min-w-max rounded-md shadow-md bg-gray-900 z-auto
   text-white text-xs font-bold
   cursor-default
   transform scale-0
