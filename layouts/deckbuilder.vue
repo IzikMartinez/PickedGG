@@ -11,7 +11,7 @@ const appStyle = computed(()=> "app-body-" + useSetName().value)
 
 </script>
 
-<style>
+<style scoped>
 .app-body-out {
     @apply fixed flex flex-wrap justify-center xl:items-center overflow-auto
     xl:(top-14) top-28 

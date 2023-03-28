@@ -1,7 +1,7 @@
 <template>
   <div class="side-btn group">
     <img :src=iconPath :alt="iconPath" />
-    <span class="tooltip lg:group-hover:scale-100 group-hover:scale-0 translate-z-2">{{props.toolTip}}</span>
+    <span class="tooltip lg:group-hover:scale-100 group-hover:scale-0 z-10">{{props.toolTip}}</span>
   </div>
 </template>
 
@@ -36,9 +36,9 @@ const iconPath = computed( () => "/" + props.fileName + ".svg" )
   lg:top-auto md:top-12 
   rounded-md shadow-md
   text-white bg-gray-900
-  z-30
+  z-0
   text-xs font-bold
-  transform scale-0 translate-z-10
+  transform scale-0 
   transition-all scale-0 duration-100 origin-left
 }
 

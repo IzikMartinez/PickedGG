@@ -21,7 +21,7 @@ const barStyle = computed(()=> "bar-" + useSetName().value)
 
 .bar-out {
     @apply
-    fixed flex flex-col w-screen h-28 bg-red-900 top-0 left-0 justify-center xl:(items-center justify-center h-14 flex-row)
+    fixed flex flex-row w-screen h-28 bg-red-900 top-0 left-0 justify-center xl:(items-center justify-center h-14 flex-row)
 }
 
 .bar-upr {

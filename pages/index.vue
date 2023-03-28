@@ -2,7 +2,7 @@
   <NuxtLayout>
     <div class="items-center justify-center flex flex-col">
       <MainSetbtn setname="out"></MainSetbtn>
-      <MainSetbtn setname="upr"></MainSetbtn>
+      <!--<MainSetbtn setname="upr"></MainSetbtn>-->
     </div>
   </NuxtLayout>
 </template>

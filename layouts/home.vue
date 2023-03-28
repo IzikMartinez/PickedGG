@@ -12,7 +12,7 @@
             return "app-body-upr" })
 </script>
 
-<style>
+<style scoped>
 .app-body-out {
     @apply fixed flex justify-center text-center
     xl:(top-0 left-0)

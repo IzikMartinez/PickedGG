@@ -1,8 +1,9 @@
 <template>
-        <DeckRow overflow="auto"/>
-        <DeckDropzone />
+        <NuxtLayout name="sealed">
+                <DeckRow overflow="auto"/>
+                <DeckDropzone />
+        </NuxtLayout>
 </template>
 
 <script setup lang="ts">
-definePageMeta({layout: 'deckbuilder'})
 </script>

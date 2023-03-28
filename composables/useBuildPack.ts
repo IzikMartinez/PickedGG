@@ -48,38 +48,45 @@ function pushCard(pack: card[], data: Record, cardPackID: number) {
     pack.push(makeCard(data, cardPackID))
 }
 
-function filterByType(type: string[], cardData: Record[], both?: boolean): Record[] {
-    if(type.length === 2 && both === false) 
-        return cardData.filter( x => x.card_type.includes(type[0]) && !x.card_type.includes(type[1]))
-    else if(type.length === 3 && both === false) 
-        return cardData.filter( x => x.card_type.includes(type[0]) && !x.card_type.includes(type[1]) && !x.card_type.includes(type[2]))
-    else if(type.length === 4 && both === false) 
-        return cardData.filter( x => x.card_type.includes(type[0]) 
-            && !x.card_type.includes(type[1]) 
-            && !x.card_type.includes(type[2]) 
-            && !x.card_type.includes(type[3]))
-    else if(type.length === 5 && both === false) 
-        return cardData.filter( x => x.card_type.includes(type[0]) 
-            && !x.card_type.includes(type[1]) 
-            && !x.card_type.includes(type[2]) 
-            && !x.card_type.includes(type[3])
-            && !x.card_type.includes(type[4]))
-    else if (type.length === 3 && both === true)
-        return cardData.filter( x => x.card_type.includes(type[0]) && x.card_type.includes(type[1]) && !x.card_type.includes(type[2]))
-    else 
-        return cardData.filter( x => x.card_type.includes(type[0]))
+export function getInvalidClasses(classes:string[], validClasses: string[]) {
+    let invalidClasses = classes;
+    validClasses.forEach(valid_class =>  {
+        invalidClasses = invalidClasses.filter(cls => !cls.includes(valid_class))
+    })
+    return invalidClasses
+}
+
+const useOutClasses = ["Assassin", "Ninja", "Ranger", "Generic", "Equipment"]
+
+function filterByType(cardData: Record[], validClasses: string[]) {
+    let filtered = cardData
+    getInvalidClasses(useOutClasses, validClasses).forEach(invalid_class => {
+        filtered = filtered.filter(card => !card.card_type.includes(invalid_class))
+    })
+    return filtered
 }
 
 function filterByRarity(rarity: string, cardData: Record[]): Record[] {
-    
     return cardData.filter( x => x.rarity === rarity )
+}
+
+function filterForEquipment(cardData: Record[]) {
+    return cardData.filter(card => card.card_type.includes("Equipment"))
 }
 
 ////////////////////////////////////////////////////////////////////////////
 // LAYER 2 METHODS
 ////////////////////////////////////////////////////////////////////////////
-function filterByTypeAndRarity(type: string[], rarity: string, cardData: Record[], both?: boolean): Record[] {
-    const cards_by_type = filterByType(type, cardData, both)
+function filterTypes(cardData: Record[], validClasses: string[]){
+    //get array from filterbytypes
+    //return only values that overlap all classes
+    let fulljoin =filterByType(cardData, validClasses)
+    return fulljoin.filter(card => card.card_type.includes(validClasses[0]) && card.card_type.includes(validClasses[1]))
+
+}
+
+function filterByTypeAndRarity(classes: string[], rarity: string, cardData: Record[]): Record[] {
+    const cards_by_type = filterByType(cardData, classes)
     return filterByRarity(rarity, cards_by_type)
 }
 
@@ -96,14 +103,19 @@ function getRandomCard(card_index: number, cards: Record[]): Record {
 ////////////////////////////////////////////////////////////////////////////
 // LAYER 3 METHODS
 ////////////////////////////////////////////////////////////////////////////
-function getCardT(type: string[], cardData: Record[], both?: boolean): Record{
-    let cards_by_type = filterByType(type, cardData, both)
+function getCardT(classes: string[], cardData: Record[]): Record{
+    let cards_by_type = filterByType(cardData, classes)
     //function that gets a random number based on length of cards_by_type_rarity
     let card_index = randomCardNumber(cards_by_type)
     //function that uses random number to get the corresponding card from the list
     let card = getRandomCard(card_index, cards_by_type)
     return card
     //return the card
+}
+
+function getCardTs(cardData: Record[], classes: string[]) {
+    const cards_by_types = filterTypes(cardData, classes)
+    return getRandomCard(randomCardNumber(cards_by_types), cards_by_types)
 }
 
 function getCardR(rarity: string, cardData: Record[]): Record{
@@ -115,8 +127,10 @@ function getCardR(rarity: string, cardData: Record[]): Record{
     return card
     //return the card
 }
-function getCardTR(type: string[], rarity: string, cardData: Record[], both?: boolean): Record{
-    let cards_by_type_rarity = filterByTypeAndRarity(type, rarity, cardData, both)
+
+//////////////////// LAYER 5 ////////////////////////
+function getCardTR(type: string[], rarity: string, cardData: Record[]): Record{
+    let cards_by_type_rarity = filterByTypeAndRarity(type, rarity, cardData)
     //function that gets a random number based on length of cards_by_type_rarity
     let card_index = randomCardNumber(cards_by_type_rarity)
     //function that uses random number to get the corresponding card from the list
@@ -124,84 +138,141 @@ function getCardTR(type: string[], rarity: string, cardData: Record[], both?: bo
     return card
     //return the card
 }
-function BuildCard(cardData: Record[], card_in_pack: number, rarity?: string, type?: string[], both?: boolean): Record {
 
-    if(type && !rarity) return getCardT(type, cardData, both) as Record 
+function getEquipmentCard(cardData: Record[], rarity: string) {
+    const cards_by_rarity = filterByRarity(rarity, cardData)
+    const cards_by_equip = filterForEquipment(cards_by_rarity)
+    return getRandomCard(randomCardNumber(cards_by_equip), cards_by_equip)
+}
+
+function getCardTypesAndRarity(cardData: Record[], validClasses: string[], rarity: string): Record{
+    const cards_by_rarity = filterByRarity(rarity, cardData)
+    const cards_by_types_rarity = filterTypes(cards_by_rarity, validClasses)
+    return getRandomCard(randomCardNumber(cards_by_types_rarity), cards_by_types_rarity)
+}
+function BuildCard(cardData: Record[], card_in_pack: number, rarity?: string, type?: string[]): Record {
+
+    if(type && !rarity) return getCardT(type, cardData) as Record 
     else if(!type && rarity) return getCardR(rarity, cardData) as Record 
-    else if(type && rarity) return getCardTR(type, rarity, cardData, both) as Record 
+    else if(type && rarity) return getCardTR(type, rarity, cardData) as Record 
     else { console.log(card_in_pack); return new Record }
-    /*
-    return {
-        record_id: RecordCard.value.id,
-        card_in_pack: card_in_pack,
-        card_id: RecordCard.value.card_id,
-        card_name: RecordCard.value.card_name,
-        card_type: RecordCard.value.card_type,
-        pitch: RecordCard.value.pitch,
-        cost: RecordCard.value.cost,
-        power: RecordCard.value.power,
-        defense: RecordCard.value.defense,
-        rarity: RecordCard.value.rarity,
-        card_art: RecordCard.value.card_art
-    }
-    */
+}
+////////////////////////////////////////////////////////////////////////////
+// Get card from a random class
+////////////////////////////////////////////////////////////////////////////
+
+interface classOdds {
+    class_name: string;
+    class_odds: number;
 }
 
-function randomClass(class1: string, class2: string, odds1: number, odds2: number): string {
-    const number = getRandomInt(100,1)
-    if(number <= odds1) return class1
-    else if(number > odds1 && number <= odds2) return class2
-    else return ""
+interface classes {
+    valid_classes: string[]
+    invalid_class: string[];
 }
 
-function randomClass3(class1: string, class2: string, class3: string, odds1: number, odds2: number): string {
-    const number = getRandomInt(100,1)
-    if(number <= odds1) return class1
-    else if(number > odds1 && number <= odds2) return class2
-    else return class3
+function getWinner(dieroll: number, classOdds: classOdds[]) {
+    return classOdds.filter(cls => cls.class_odds > dieroll)
 }
 
+interface randomClassRarity {
+    classes: string[],
+    rarity: string
+}
+export function getRandomRarity(classOdds: classOdds[], count: number): string {
+    const winner = getWinner(getRandomInt(100,1), classOdds)
+    return winner[0].class_name
+}
+
+
+function getRandomClass(classOdds: classOdds[], classSets: string[][], count: number): randomClassRarity  {
+    const randRarity = getRandomRarity(classOdds, count)
+    if( randRarity === "common") {
+        return {classes: classSets[0], rarity: randRarity}
+    } else return {classes: classSets[1], rarity: randRarity}
+}
 
 ////////////////////////////////////////////////////////////////////////////
 // LAYER 4 METHODS
 ////////////////////////////////////////////////////////////////////////////
+const an_hybrid:classes = {
+    valid_classes: ["Assassin", "Ninja"],
+    invalid_class: ["Ranger", "Generic"]
+}
+
+const ra_hybrid: classes = {
+    valid_classes: ["Assassin", "Ranger"],
+    invalid_class: ["Ninja", "Generic"]
+}
+
+const slot10odds: classOdds[] = [
+    {
+        class_name: "common",
+        class_odds: 66.667,
+    },
+    {
+        class_name: "rare",
+        class_odds: 100
+    }
+] 
+const slot11odds: classOdds[] = [
+        {
+            class_name: "common",
+            class_odds: 42.5
+        },
+        {
+            class_name: "rare",
+            class_odds: 80.0
+        },
+        {
+            class_name: "majestic",
+            class_odds: 100.0
+        }
+    ]
+const slot12odds: classOdds[] = [
+        {
+            class_name: "rare",
+            class_odds: 100.0
+        }
+    ]
+const slot13odds: classOdds[] = [
+        {
+            class_name: "common",
+            class_odds: 76.0
+        },
+        {
+            class_name: "rare",
+            class_odds: 96.0
+        },
+        {
+            class_name: "majestic",
+            class_odds: 100.0
+        }
+    ]
+
 export const useBuildPack = function(): Record[] {
     const cardData = useState('card-data').value as Record[]
     let pack: Record[] = []
 
-    if(useSetName().value === "out") {
-        pack.push(BuildCard(cardData, 0, "common", ["Assassin", "Ninja", "Equipment"], false))
-        pack.push(BuildCard(cardData,1, "common", ["Assassin", "Ninja", "Equipment"], false))
-        pack.push(BuildCard(cardData,2, "common", ["Ninja", "Assassin", "Equipment"], false))
-        pack.push(BuildCard(cardData,3, "common", ["Ninja", "Assassin", "Equipment"], false))
-        pack.push(BuildCard(cardData,4, "common", ["Ranger", "Assassin", "Equipment"], false))
-        pack.push(BuildCard(cardData,5, "common", ["Ranger", "Assassin", "Equipment"], false))
-        pack.push(BuildCard(cardData,6, "common", ["Generic", "Equipment"], false))
-        pack.push(BuildCard(cardData,7, "common", ["Generic", "Equipment"], false))
-        pack.push(BuildCard(cardData,8, "common", ["Generic", "Equipment"], false))
-        pack.push(getCardTR(["Equipment"], "common", cardData, false))
-        pack.push(getCardTR(["Assassin", "Ninja", "Equipment"], "common", cardData, true))
-        pack.push(getCardR("rare", cardData))
-        pack.push(BuildCard(cardData,11, randomClass3("rare","majestic", "legendary", 81, 98)))
-        pack.push(BuildCard(cardData,12, randomClass("common", "rare", 97,100)))
-    }
+    let ninjaCount = 0
+    let assassinCount = 0
+    let rangerCount = 0
+    pack.push(BuildCard(cardData, 0, "common", ["Generic"]))
+    pack.push(BuildCard(cardData,1, "common", ["Generic"]))
+    pack.push(BuildCard(cardData,2, "common", ["Generic"]))
+    pack.push(BuildCard(cardData,3, "common", ["Ninja"]))
+    pack.push(BuildCard(cardData,4, "common", ["Ranger"]))
+    pack.push(BuildCard(cardData,5, "common", ["Ranger"]))
+    pack.push(BuildCard(cardData,6, "common", ["Ninja"]))
+    pack.push(BuildCard(cardData,7, "common", ["Assassin"]))
+    pack.push(BuildCard(cardData,8, "common", ["Assassin"]))
+    pack.push(getCardTypesAndRarity(cardData, ["Assassin", "Ninja"], getRandomRarity(slot10odds, 0)))
+    const {classes: slot11_classes, rarity: slot11_rarity} = getRandomClass(slot11odds, [["Assassin", "Ninja"], useOutClasses], 0)
+    pack.push(getCardTypesAndRarity(cardData, slot11_classes, slot11_rarity))
+    pack.push(getCardR(getRandomRarity(slot12odds,0), cardData))
+    pack.push(getCardR(getRandomRarity(slot13odds,0), cardData))
+    pack.push(getEquipmentCard(cardData, "common"))
 
-    else {
-        pack.push(BuildCard(cardData,0, "common", ["generic"], false))
-        pack.push(BuildCard(cardData,1, "common", ["ice"], false))
-        pack.push(BuildCard(cardData,2, "common", ["draconic"], false))
-        pack.push(BuildCard(cardData,3, "common", ["generic"], false))
-        pack.push(BuildCard(cardData,4, "rare"))
-        pack.push(BuildCard(cardData,5, randomClass("rare","majestic", 75, 100)))
-        pack.push(BuildCard(cardData,6, randomClass("common", "rare", 97,100)))
-        pack.push(BuildCard(cardData,7, "common", ["ninja"], false))
-        pack.push(BuildCard(cardData,8, "common", ["ninja"], false))
-        pack.push(BuildCard(cardData,9, "common", ["illusionist"], false))
-        pack.push(BuildCard(cardData,10, "common", ["illusionist"], false))
-        pack.push(BuildCard(cardData,11, "common", ["wizard"], false))
-        pack.push(BuildCard(cardData,12, "common", ["wizard"], false))
-        pack.push(BuildCard(cardData,13, "common", ["wizard"], false))
-    }
     return pack;
 }
 

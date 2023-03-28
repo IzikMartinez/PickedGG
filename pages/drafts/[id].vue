@@ -30,13 +30,13 @@ definePageMeta({ layout: "default"})
 
 store.$subscribe( (mutation, state)=> {
   const router = useRouter()
-  if(state.roundIndex === 2) {
-    router.push({path: "/deckbuilder"})
-  }
-  else if(state.pickIndex / state.packSize === 1 && state.roundIndex !== 2)  {
+  if(state.pickIndex / state.packSize === 1 && state.roundIndex < 3)  {
     router.push({path: "/picks"})
     state.roundIndex++
     state.pickIndex = 0
+  }
+  else if( state.roundIndex > 2) {
+    router.push({path: "/deckbuilder"})
   }
 })
 

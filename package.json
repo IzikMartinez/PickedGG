@@ -18,6 +18,7 @@
   "dependencies": {
     "@nuxtjs/supabase": "^0.3.0",
     "@pinia/nuxt": "^0.4.6",
+    "@windicss/plugin-scrollbar": "^1.2.3",
     "pocketbase": "^0.12.0"
   }
 }

@@ -56,7 +56,6 @@ function addPick() {
 }
 .card-medium {
   @apply 
-  
   flex relative items-center justify-center text-center
   m-0 p-0.5
   xl:(w-68 h-95)

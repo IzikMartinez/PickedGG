@@ -75,22 +75,25 @@ function clickPick(card_in_pack: Record ) {
 
 .cardbox-small {
   @apply
-  flex flex-wrap
-  xl:w-92rem w-30rem
+  fixed flex flex-wrap
+  xl:w-92rem w-30rem h-screen
+  scrollbar scrollbar-w-0
   gap-1 justify-center overflow-auto overflow-hidden
   transition-all duration-150 ease-linear
 }
 .cardbox-medium {
   @apply
-  fixed flex flex-row flex-wrap top-20 left-16 pb-16
+  fixed flex flex-row flex-wrap top-20 left-16 pb-20
   lg:w-11/12 w-30rem h-screen
+  scrollbar scrollbar-w-0
   gap-1 items-center justify-center overflow-auto 
   transition-all duration-150 ease-linear
 }
 .cardbox-large {
   @apply
-  flex flex-wrap
-  xl:w-90rem w-72
+  fixed flex flex-wrap
+  xl:w-90rem w-72 h-screen
+  scrollbar scrollbar-w-0
   gap-1 justify-center overflow-auto overflow-hidden
   transition-all duration-150 ease-linear
 }
