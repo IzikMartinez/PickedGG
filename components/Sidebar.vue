@@ -16,11 +16,8 @@
 <script setup lang="ts">
 
 function setCardSize(size: string) {
-  const cardClass = useCardClass();
-  const cardBoxClass = useCardBoxClass();
-  if(size === "small") { cardClass.value = 'card-small group'; cardBoxClass.value = 'cardbox-small' } 
-  else if (size=== "medium") { cardClass.value = 'card-medium group'; cardBoxClass.value = 'cardbox-medium'}
-  else { cardClass.value = 'card-large group'; cardBoxClass.value = 'cardbox-large'}
+  useCardClass().value = size;
+  useCardBoxClass().value = size;
 }
 </script>
 

@@ -31,7 +31,7 @@ const thisdraft = useDraft()
 const store = usePickStore()
 const timerStore = useTimerStore()
 
-const cardBoxClass = useCardBoxClass()
+const cardBoxClass = computed(()=> 'cardbox-' + useCardBoxClass().value)
 const current_pack_index = computed(()=>store.getPickIndex % PLAYER_NUM)
 const current_pack = computed(()=> { return thisdraft.getRound(store.getRoundIndex)?.getPack(current_pack_index.value)})
 //const pick_number = computed(()=> (store.getPickIndex % PACK_SIZE))
@@ -76,14 +76,14 @@ function clickPick(card_in_pack: Record ) {
 .cardbox-small {
   @apply
   fixed flex flex-wrap
-  xl:w-92rem w-30rem h-screen
+  xl:(w-screen top-30 left-8) w-30rem 
   scrollbar scrollbar-w-0
   gap-1 justify-center overflow-auto overflow-hidden
   transition-all duration-150 ease-linear
 }
 .cardbox-medium {
   @apply
-  fixed flex flex-row flex-wrap top-20 left-16 pb-20
+  fixed flex flex-row flex-wrap top-20 left-20 pb-20
   lg:w-11/12 w-30rem h-screen
   scrollbar scrollbar-w-0
   gap-1 items-center justify-center overflow-auto 
@@ -91,10 +91,10 @@ function clickPick(card_in_pack: Record ) {
 }
 .cardbox-large {
   @apply
-  fixed flex flex-wrap
-  xl:w-90rem w-72 h-screen
+  fixed flex flex-wrap pb-20
+  xl:(w-screen left-10 right-8 top-20) w-72 h-screen
   scrollbar scrollbar-w-0
-  gap-1 justify-center overflow-auto overflow-hidden
+  gap-1 justify-center overflow-auto 
   transition-all duration-150 ease-linear
 }
 

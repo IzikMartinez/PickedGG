@@ -22,7 +22,7 @@ const emit = defineEmits<{
   (e: 'cardClicked', type: Record): void
 }>()
 
-const cardClass = useCardClass() 
+const cardClass = computed(()=>'card-' +useCardClass().value )
 const artPath = ref("")
 
 function addPick() {
