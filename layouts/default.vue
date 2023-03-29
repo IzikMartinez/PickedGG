@@ -1,6 +1,6 @@
 <template>
     <div :class="appstyle" >
-        <Sidebar />
+        <Sidebar class="z-1"/>
         <slot />
     </div>
 </template>

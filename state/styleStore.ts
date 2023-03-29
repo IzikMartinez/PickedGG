@@ -14,19 +14,19 @@ export const useStyleStore = defineStore('style', {
         },
         async screenWipe(roundFlag: boolean) {
             //const cardClass = useCardClass()
-            const cardboxClass = useCardBoxClass()
+            const cardboxClass = useCardBoxClass().value
             if(roundFlag == true) { // round is odd
-                cardboxClass.value = "cardbox-right"
+                useCardBoxClass().value = cardboxClass + "-right"
                 await this.delay(400)
-                cardboxClass.value = "cardbox-left"
+                useCardBoxClass().value = cardboxClass + "-left"
                 await this.delay(300)
             } else {
-                cardboxClass.value = "cardbox-left"
+                useCardBoxClass().value = cardboxClass + "-left"
                 await this.delay(400)
-                cardboxClass.value = "cardbox-right"
+                useCardBoxClass().value = cardboxClass + "-right"
                 await this.delay(300)
             }
-                cardboxClass.value = "cardbox-medium"
+            useCardBoxClass().value = cardboxClass
         },
         setCardSize(payload: string) {
             if (payload === "small") {

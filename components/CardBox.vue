@@ -41,8 +41,8 @@ const emit = defineEmits(['cardboxClicked'])
 defineExpose({ timeoutPick })
 
 function pick(card_in_pack_id: Record) {
-    current_pack.value?.removeCard(card_in_pack_id)
-    picker.pickCards(0, store.getInversePickIndex, store.getRoundIndex, current_pack_index.value)
+    current_pack.value?.removePick(card_in_pack_id.id)
+    usePickCards(thisdraft.getRound(store.getRoundIndex)!, current_pack.value!.pack_id)
     store.incrementIndex()
 }
 
@@ -53,14 +53,12 @@ function getRandomInt(max: number, min: number): number {
     }
 
 function timeoutPick() {
-  console.log("Caught timeout on: ", current_pack_index.value)
   timerStore.setTimer(store.getInversePickIndex)
   const idx = getRandomInt(current_pack.value!.Cards.length, 0)
   pick(current_pack.value?.Cards.at(idx)!)
 }
 
 function clickPick(card_in_pack: Record ) {
-  console.log("Cardbox received ", card_in_pack)
   if(card_in_pack != null) {
     emit('cardboxClicked')
     timerStore.setTimer(store.getInversePickIndex)
@@ -76,7 +74,7 @@ function clickPick(card_in_pack: Record ) {
 .cardbox-small {
   @apply
   fixed flex flex-wrap
-  xl:(w-screen top-30 left-8) w-30rem 
+  xl:(w-screen top-30 left-8) w-30rem
   scrollbar scrollbar-w-0
   gap-1 justify-center overflow-auto overflow-hidden
   transition-all duration-150 ease-linear
@@ -98,7 +96,26 @@ function clickPick(card_in_pack: Record ) {
   transition-all duration-150 ease-linear
 }
 
-.cardbox-left {
+
+.cardbox-medium-left {
+  @apply
+  fixed flex flex-row flex-wrap top-20 left-16 
+  lg:w-11/12 w-30rem 
+  gap-0 items-center justify-center overflow-auto 
+  transform
+  translate-x-full opacity-0
+  transition-all duration-150 ease-linear
+}
+.cardbox-large-left {
+  @apply
+  fixed flex flex-row flex-wrap top-20 left-16 
+  lg:w-11/12 w-30rem 
+  gap-0 items-center justify-center overflow-auto 
+  transform
+  translate-x-full opacity-0
+  transition-all duration-150 ease-linear
+}
+.cardbox-small-left {
   @apply
   fixed flex flex-row flex-wrap top-20 left-16 
   lg:w-11/12 w-30rem 
@@ -108,7 +125,25 @@ function clickPick(card_in_pack: Record ) {
   transition-all duration-150 ease-linear
 }
 
-.cardbox-right {
+.cardbox-medium-right {
+  @apply  
+  fixed flex flex-row flex-wrap top-20 left-16 
+  lg:w-11/12 w-30rem 
+  gap-0 items-center justify-center overflow-auto 
+  transform
+  -translate-x-full opacity-0
+  transition-all duration-150 ease-linear
+}
+.cardbox-large-right {
+  @apply  
+  fixed flex flex-row flex-wrap top-20 left-16 
+  lg:w-11/12 w-30rem 
+  gap-0 items-center justify-center overflow-auto 
+  transform
+  -translate-x-full opacity-0
+  transition-all duration-150 ease-linear
+}
+.cardbox-small-right {
   @apply  
   fixed flex flex-row flex-wrap top-20 left-16 
   lg:w-11/12 w-30rem 

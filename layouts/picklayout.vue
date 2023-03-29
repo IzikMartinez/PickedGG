@@ -1,6 +1,7 @@
 <template>
-    <PickBar /> 
     <div :class="appStyle">
+    <PickBar class="fixed z-2 top-0"/> 
+    <Sidebar class="z-1"/>
         <slot />
     </div>
 </template>
@@ -11,9 +12,9 @@
 
 <style scoped>
 .app-body-out {
-    @apply fixed flex flex-wrap justify-center xl:items-center overflow-auto
-    xl:(top-14) top-28 
+    @apply fixed flex flex-wrap justify-center xl:items-center 
     w-screen h-screen
+    scrollbar scrollbar-w-0
     bg-gradient-to-b from-blue-gray-800 to-black
 }
 

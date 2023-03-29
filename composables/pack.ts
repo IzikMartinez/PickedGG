@@ -7,6 +7,7 @@ export default class Pack {
     picked_id =0;
 
     pack_id: number = 0
+    picked_cards: Record[] = []
     cards: Record[] = []
 
     constructor(pack_id: number) {
@@ -36,20 +37,29 @@ export default class Pack {
     ////////////////////////////////////////////////////////////////////////////
     
 
-    removeCard(cardPackId: Record): void {
-        this.cards = this.cards.filter(card => card !== cardPackId)
+    removeCard(cardId: string ): void {
         this.picked++
+        this.cards = this.cards.filter(card => card.id !== cardId)
     }
 
-    getRandomCardID(): Record | null {
-        const index=this.getRandomInt(this.cards.length,0)
-        const card = this.cards.at(index)
-        if(card) return card
-        else return null
+    removePick(card_id: string) {  
+        let index = this.cards.findIndex(card => card.id === card_id)
+        if (index > -1)  {
+            this.picked_cards.push(this.cards.splice(index, 1)[0])
+        }
+    }
+    getRandomCardIndex() {
+        return this.getRandomInt(this.cards.length,0)
+    }
+
+    getRandomCardID(): string {
+        const card = this.cards.at(this.getRandomCardIndex())
+        if(card) return card.id
+        else return "" 
     }
 
     removeRandomCard() {
-        this.removeCard(this.getRandomCardID()!)
+        this.removePick(this.getRandomCardID()!)
     }
 
     getCard(card_pack_id:number): number | undefined {

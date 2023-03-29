@@ -18,6 +18,6 @@ const props = defineProps<{
 <style scoped>
 .list{
     @apply
-    flex lg:flex-row md:flex-col flex-wrap w-408 
+    fixed flex lg:flex-row md:flex-col flex-wrap w-screen h-screen xl:(top-16 left-6 pb-16 items-start justify-center) overflow-auto 
 }
 </style>

@@ -23,6 +23,9 @@ export default class Round {
         }
         return packs
     }
+    get Packs() {
+        return this.packs
+    }
 
     getPack(pack_id: number): Pack {
         const pack = this.packs.at(pack_id)
