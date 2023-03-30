@@ -179,7 +179,7 @@
          id="tspan42619"
          x="119.39765"
          y="33.941349"
-         class="font-display fill-black text-md">{{cardName}}</tspan></text>
+         class="font-display fill-black text-md font-medium">{{cardName}}</tspan></text>
   </g>
 </svg>
 </template>

@@ -1,8 +1,8 @@
 <template>
     <span class="list">
-    <div v-for="pick in props.picks" draggable="true" @dragstart="startDrag($event, pick)">
-        <Card :cardProps="pick" :picked-flag="true" class="hover:z-1"></Card>
-    </div>
+        <div v-for="pick in props.picks" draggable="true" @dragstart="startDrag($event, pick)">
+            <Card :cardProps="pick" :picked-flag="true" class="hover:z-1"></Card>
+        </div>
     </span>
 </template>
 
@@ -26,6 +26,10 @@ function startDrag(event: DragEvent, pick: Record) {
 <style scoped>
 .list{
     @apply
-    flex lg:flex-row md:flex-col flex-wrap 
+    fixed flex flex-wrap h-screen justify-center 
+    lg:(flex-row w-13/16 left-12 top-6 py-10) 
+    md:flex-col 
+    overflow-auto
+    scrollbar scrollbar-w-0
 }
 </style>

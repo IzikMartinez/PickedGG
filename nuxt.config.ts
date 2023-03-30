@@ -3,6 +3,7 @@ export default defineNuxtConfig({
     modules: [
         'nuxt-windicss',
         '@nuxtjs/supabase',
+        '@nuxt/devtools',
         [
         '@pinia/nuxt',
             { 
@@ -27,5 +28,9 @@ export default defineNuxtConfig({
         build: {
             target: "esnext"
         }
+    },
+    devtools: {
+        enabled: true,
+        vscode: {}
     }
 })

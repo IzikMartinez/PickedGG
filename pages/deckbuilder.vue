@@ -1,9 +1,10 @@
 <template>
         <NuxtLayout name="sealed">
-                <DeckRow overflow="auto"/>
+                <DeckArray :picks="picks" />
                 <DeckDropzone />
         </NuxtLayout>
 </template>
 
 <script setup lang="ts">
+const picks = computed( useSearchPicks )
 </script>

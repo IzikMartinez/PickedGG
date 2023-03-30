@@ -15,7 +15,11 @@ const numClass = computed(()=> useBladeSwitch().value === false ? 'closed' : 'op
 <style>
 .open {
     @apply
-    flex relative right-5 bg-pink-900 h-12 w-8 rounded-l-md items-center justify-center text-center
+    flex relative right-5 bg-pink-900 
+    h-12 w-8 rounded-l-md 
+    items-center justify-center 
+    text-center
+    text-white text-2xl font-medium
 }
 .closed {
     @apply

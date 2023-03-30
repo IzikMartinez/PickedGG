@@ -7,7 +7,7 @@
     @click="bladeSwitch = !bladeSwitch"
     >
         <span v-if="deck.length === 0"> Drag cards here... </span>
-        <span v-else class="flex flex-col items-center h-screen pt-4">
+        <span v-else class="flex flex-col items-center h-screen pt-2">
             <DeckSize :decksize="decksize"/>
             <span v-for="card in deck">
                 <DeckCard :card-props="card" @emitted-card-name="handleEmit"/>
@@ -105,13 +105,19 @@ function addCardToDeck(card: Record) {
 
 <style>
 .blade {
- @apply fixed flex w-70 xl:w-80 h-screen right-0 xl:top-14 top-28 bg-blue-gray-600 hover:bg-blue-gray-700 text-center justify-center font-display text-xl text-white
- transition-all duration-150 overflow-auto
+ @apply fixed flex w-70 xl:w-80 h-screen right-0 
+ xl:top-14 top-28 bg-blue-gray-600 hover:bg-blue-gray-700 
+ text-center justify-center 
+ font-display text-xl text-white
+ overflow-auto scrollbar scrollbar-w-0
+ transition-all duration-150 
  transform z-0
 }
 
 .blade-clps {
- @apply fixed flex w-10 xl:w-80 h-screen right-0 xl:top-14 top-28 bg-blue-gray-600 xl:hover:bg-blue-gray-600  hover:bg-teal-600 text-center justify-center font-display text-xl text-white
+ @apply fixed flex w-10 xl:w-80 h-screen right-0 
+ xl:top-14 top-28 bg-blue-gray-600 xl:hover:bg-blue-gray-600 hover:bg-teal-600 
+ text-center justify-center font-display text-xl text-white
  transition-all duration-150
 }
 
