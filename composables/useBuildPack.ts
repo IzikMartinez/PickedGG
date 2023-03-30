@@ -165,32 +165,61 @@ interface classOdds {
     class_name: string;
     class_odds: number;
 }
-
 interface classes {
     valid_classes: string[]
     invalid_class: string[];
+}
+interface classesAndRarity {
+    classes: string[],
+    rarity: string
+}
+interface classesAndOdds {
+    classes: string[]
+    odds: number
 }
 
 function getWinner(dieroll: number, classOdds: classOdds[]) {
     return classOdds.filter(cls => cls.class_odds > dieroll)
 }
 
-interface randomClassRarity {
-    classes: string[],
-    rarity: string
-}
-export function getRandomRarity(classOdds: classOdds[], count: number): string {
+function getRandomRarity(classOdds: classOdds[], count: number): string {
     const winner = getWinner(getRandomInt(100,1), classOdds)
     return winner[0].class_name
 }
 
+function getRandomClasss(classSets: classesAndOdds[]) {
+    const dieroll = getRandomInt(100, 1)
+    const winner = classSets.filter(set => set.odds > dieroll)
+    return winner[0].classes
+}
 
-function getRandomClass(classOdds: classOdds[], classSets: string[][], count: number): randomClassRarity  {
+function getIsCommon(testee: string, test: string) {
+    if(testee === "common") return true
+    else return false
+}
+
+function getConditionalClass(classSets: string[][], classOdds: classOdds[], count: number): classesAndRarity  {
     const randRarity = getRandomRarity(classOdds, count)
     if( randRarity === "common") {
         return {classes: classSets[0], rarity: randRarity}
     } else return {classes: classSets[1], rarity: randRarity}
 }
+
+function getHybrids(classSets: classesAndOdds[], classOdds: classOdds[], count: number) {
+    const randRarity = getRandomRarity(classOdds, count)
+    if( randRarity === "common") {
+        return {classes: getRandomClasss(classSets), rarity: randRarity}
+    } else return {classes: useOutClasses, rarity: randRarity}
+}
+
+function getSlot11(cardData: Record[], classSets: classesAndOdds[], classOdds: classOdds[], count: number) {
+    const {classes: slot11_classes, rarity: slot11_rarity} = getHybrids(classSets, classOdds, count)
+    if(slot11_rarity === "common") {
+        return getCardTypesAndRarity(cardData, slot11_classes, slot11_rarity)
+    } else return getCardTR(slot11_classes, slot11_rarity, cardData)
+}
+
+
 
 ////////////////////////////////////////////////////////////////////////////
 // LAYER 4 METHODS
@@ -250,6 +279,11 @@ const slot13odds: classOdds[] = [
         }
     ]
 
+const outsider_hybrids: classesAndOdds[] = [
+    { classes: ["Assassin", "Ninja"], odds: 50},
+    { classes: ["Assassin", "Ranger"], odds: 100},
+]
+
 export const useBuildPack = function(): Record[] {
     const cardData = useState('card-data').value as Record[]
     let pack: Record[] = []
@@ -266,11 +300,12 @@ export const useBuildPack = function(): Record[] {
     pack.push(BuildCard(cardData,6, "common", ["Ninja"]))
     pack.push(BuildCard(cardData,7, "common", ["Assassin"]))
     pack.push(BuildCard(cardData,8, "common", ["Assassin"]))
-    pack.push(getCardTypesAndRarity(cardData, ["Assassin", "Ninja"], getRandomRarity(slot10odds, 0)))
-    const {classes: slot11_classes, rarity: slot11_rarity} = getRandomClass(slot11odds, [["Assassin", "Ninja"], useOutClasses], 0)
-    pack.push(getCardTypesAndRarity(cardData, slot11_classes, slot11_rarity))
+    const {classes: slot10_classes, rarity: slot10_rarity} = getHybrids(outsider_hybrids, slot10odds, 0)
+    pack.push(getCardTypesAndRarity(cardData, slot10_classes, slot10_rarity))
+    pack.push(getSlot11(cardData, outsider_hybrids, slot11odds, 0))
     pack.push(getCardR(getRandomRarity(slot12odds,0), cardData))
-    pack.push(getCardR(getRandomRarity(slot13odds,0), cardData))
+    const {classes: slot13_classes, rarity: slot13_rarity} = getConditionalClass([["Assassin", "Ninja", "Ranger"], useOutClasses], slot11odds, 0)
+    pack.push(getCardTR(slot13_classes, slot13_rarity, cardData))
     pack.push(getEquipmentCard(cardData, "common"))
 
     return pack;
