@@ -2,12 +2,16 @@
     <div :class="appStyle">
         <PickBar class="fixed z-2 top-0"/> 
         <Sidebar class="z-1"/>
+        <NuxtLink :to="draftHome">
+            <PickbarNextbtn button-text="Next Round"/>
+        </NuxtLink>
         <slot />
     </div>
 </template>
 
 <script setup lang="ts">
     const appStyle = computed(()=> "app-body-" + useSetName().value)
+    const draftHome = computed(()=> "/drafts/" + useSetName().value)
 </script>
 
 <style scoped>

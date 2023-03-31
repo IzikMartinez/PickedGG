@@ -15,13 +15,14 @@ const props = defineProps<{
     .nextbtn {
         @apply
         absolute 
-        flex rounded-r-md bg-darkteal bg-teal-500 h-10 w-20
-        xl:(rounded-l-md top-0 right-0 left-auto h-14 w-40 ) 
-        bottom-0
-        justify-center items-center
-        cursor-pointer
-        hover:(bg-sky-400 rounded-l-3xl)
-        font-display text-white text-center xl:text-3xl text-lg
-        transition-all ease-linear duration-100 
+        flex 
+        bg-darkteal bg-teal-500 h-12 w-20
+        font-display text-white text-center justify-center items-center
+        xl:(rounded-l-md rounded-r-none h-14 w-30 text-2xl right-0 top-0 z-3)
+        xl:hover:(rounded-l-2xl bg-blue-400 text-gray-800)
+        bottom-16 right-0 rounded-l-lg z-3
+        transition-all duration-100 ease-linear
+
+
     }
 </style>
