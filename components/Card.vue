@@ -51,7 +51,7 @@ function addPick() {
   flex relative items-center justify-center text-center
   my-0 p-0.5
   xl:(w-60 h-84)
-  w-8rem h-11.1rem
+  w-30 h-42
   bg-black hover:bg-gray-100
 }
 .card-medium {
@@ -59,7 +59,7 @@ function addPick() {
   flex relative items-center justify-center text-center
   m-0 p-0.5
   xl:(w-68 h-95)
-  w-48 h-67
+  w-40 h-54
   bg-black hover:bg-gray-100
 }
 .card-large {

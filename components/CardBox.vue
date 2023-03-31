@@ -1,18 +1,18 @@
 <template>
-    <div class="fixed flex flex-col w-10/12 xl:(top-0 left-16) top-16 left-0 justify-center items-center">
+    <div class="fixed flex flex-col xl:(top-0 left-16 w-10/12 ) top-16 left-0 w-screen h-screen justify-center items-center">
       <div>
-        <DraftInfo class="xl:top-0 top-16" ref="infoRef"/>
+        <DraftInfo class="fixed xl:(top-0 left-auto) top-18 left-24 justify-center" ref="infoRef"/>
+        <span :class="cardBoxClass" >
+          <div v-for="card in current_pack!.cards" :key="card.card_in_pack">
+              <Card 
+                :card-props="card" 
+                :picked-flag="false"
+                @card-clicked="clickPick">
+                :key="card.card_id"
+              </Card>
+          </div>
+        </span>
       </div>
-      <span :class="cardBoxClass" >
-        <div v-for="card in current_pack!.cards" :key="card.card_in_pack">
-            <Card 
-              :card-props="card" 
-              :picked-flag="false"
-              @card-clicked="clickPick">
-              :key="card.card_id"
-            </Card>
-        </div>
-      </span>
     </div>
 </template>
 
@@ -74,24 +74,29 @@ function clickPick(card_in_pack: Record ) {
 
 .cardbox-small {
   @apply
-  fixed flex flex-wrap
-  xl:(w-screen top-30 left-8) w-30rem
+  fixed flex flex-row flex-wrap
+  xl:(w-screen top-30 left-8 pb-0 gap-0) w-screen h-screen
+  top-40 left-0 pb-60
   scrollbar scrollbar-w-0
-  gap-1 justify-center overflow-auto overflow-hidden
+  gap-1 justify-center overflow-auto 
   transition-all duration-150 ease-linear
 }
 .cardbox-medium {
   @apply
-  fixed flex flex-row flex-wrap top-20 left-20 pb-20
-  lg:w-11/12 w-30rem h-screen
+  fixed flex flex-row flex-wrap 
+  xl:(top-20 left-20 pb-20 w-11/12)
+  top-40 left-0
+  w-screen h-screen
   scrollbar scrollbar-w-0
   gap-1 justify-center overflow-auto 
   transition-all duration-150 ease-linear
 }
 .cardbox-large {
   @apply
-  fixed flex flex-wrap pb-20
-  xl:(w-screen left-10 right-8 top-20) w-72 h-screen
+  fixed flex flex-wrap 
+  xl:(w-screen left-10 right-8 top-20 pb-20) 
+  w-screen h-screen
+  top-40 left-0 pb-60
   scrollbar scrollbar-w-0
   gap-1 justify-center overflow-auto 
   transition-all duration-150 ease-linear

@@ -1,5 +1,5 @@
 <template>
-    <span class="fixed flex flex-row items-center w-48 top-0">
+    <span class="fixed flex flex-row items-center w-48">
         <InfoIcon picks-packs="pack" tool-tip="Pack" />
         <InfoTimer ref="timerRef" />
         <InfoIcon picks-packs="pick" tool-tip="Pick" />
