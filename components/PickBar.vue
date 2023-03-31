@@ -24,7 +24,7 @@ const draftHome = computed(()=> "/drafts/" + useSetName().value)
 
 .bar-out {
     @apply
-    flex flex-row w-screen xl:h-14 h-28 bg-red-900 top-0 left-0 items-center justify-center
+    flex flex-row w-screen flex-wrap xl:h-14 h-36 bg-red-900 top-0 left-0 items-center justify-center
 }
 
 .bar-upr {

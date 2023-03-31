@@ -78,7 +78,7 @@ function clickPick(card_in_pack: Record ) {
   xl:(w-screen top-30 left-8 pb-0 gap-0) w-screen h-screen
   top-40 left-0 pb-60
   scrollbar scrollbar-w-0
-  gap-1 justify-center overflow-auto 
+  gap-2 justify-center overflow-auto 
   transition-all duration-150 ease-linear
 }
 .cardbox-medium {

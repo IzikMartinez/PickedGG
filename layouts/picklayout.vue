@@ -1,7 +1,7 @@
 <template>
     <div :class="appStyle">
-    <PickBar class="fixed z-2 top-0"/> 
-    <Sidebar class="z-1"/>
+        <PickBar class="fixed z-2 top-0"/> 
+        <Sidebar class="z-1"/>
         <slot />
     </div>
 </template>
