@@ -19,7 +19,8 @@ const props = defineProps<{
 .list{
     @apply
     fixed flex flex-row flex-wrap w-screen h-screen 
+    md:(top-10 pb-20 pt-0)
     xl:(top-16 left-6 pb-16 items-start justify-center) overflow-auto 
-    top-36 left-0 pb-60 pt-10
+    top-36 left-0 pb-60 pt-8
 }
 </style>

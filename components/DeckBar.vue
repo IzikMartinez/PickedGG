@@ -3,9 +3,11 @@
         <div>
             <PickbarSearch />
         </div>
-        <div class="flex flex-row" v-for="hero in heroes">
-            <PickbarBtn :text="hero"/>
-        </div>
+        <span class="flex flex-row justify-center md:(fixed right-2 w-1/2) xl:relative" >
+            <div v-for="hero in heroes">
+                <PickbarBtn :text="hero"/>
+            </div>
+        </span>
         <!--<DeckNextbtn button-text="Finish Deck"/>-->
     </div>
 </template>
@@ -21,7 +23,10 @@ const barStyle = computed(()=> "bar-" + useSetName().value)
 
 .bar-out {
     @apply
-    fixed flex flex-row flex-wrap w-screen h-28 bg-red-900 top-0 left-0 xl:(items-center justify-center h-14 flex-row)
+    fixed flex flex-wrap w-screen bg-red-900 top-0 left-0 
+    sm:(h-32 flex-row)
+    md:(justify-center h-10 flex-row)
+    xl:(items-center justify-center h-14 flex-row)
 }
 
 .bar-upr {

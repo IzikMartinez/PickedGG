@@ -26,10 +26,10 @@ function startDrag(event: DragEvent, pick: Record) {
 <style scoped>
 .list{
     @apply
-    fixed flex flex-wrap h-screen justify-center 
-    lg:(flex-row w-13/16 left-12 top-6 py-10) 
-    md:flex-col 
-    overflow-auto
+    fixed flex flex-row flex-wrap w-screen h-screen 
+    md:(top-10 pt-0 w-3/5 left-16)
+    xl:(top-16 left-8 pb-16 items-start justify-center w-10/12 mx-auto) overflow-auto 
+    top-36 left-0 pb-60 pt-4
     scrollbar scrollbar-w-0
 }
 </style>

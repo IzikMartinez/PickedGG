@@ -86,6 +86,7 @@ function clickPick(card_in_pack: Record ) {
   fixed flex flex-row flex-wrap 
   xl:(top-20 left-20 pb-20 w-11/12)
   top-40 left-0
+  pb-60
   w-screen h-screen
   scrollbar scrollbar-w-0
   gap-1 justify-center overflow-auto 
@@ -122,10 +123,12 @@ function clickPick(card_in_pack: Record ) {
   transition-all duration-150 ease-linear
 }
 .cardbox-small-left {
-  @apply
-  fixed flex flex-row flex-wrap top-20 left-16 
-  lg:w-11/12 w-30rem 
-  gap-0 items-center justify-center overflow-auto 
+  @apply  
+  fixed flex flex-row flex-wrap
+  xl:(w-screen top-30 left-8 pb-0 gap-0) w-screen h-screen
+  top-40 left-0 pb-60
+  scrollbar scrollbar-w-0
+  gap-2 justify-center overflow-auto 
   transform
   translate-x-full opacity-0
   transition-all duration-150 ease-linear
@@ -151,9 +154,11 @@ function clickPick(card_in_pack: Record ) {
 }
 .cardbox-small-right {
   @apply  
-  fixed flex flex-row flex-wrap top-20 left-16 
-  lg:w-11/12 w-30rem 
-  gap-0 items-center justify-center overflow-auto 
+  fixed flex flex-row flex-wrap
+  xl:(w-screen top-30 left-8 pb-0 gap-0) w-screen h-screen
+  top-40 left-0 pb-60
+  scrollbar scrollbar-w-0
+  gap-2 justify-center overflow-auto 
   transform
   -translate-x-full opacity-0
   transition-all duration-150 ease-linear

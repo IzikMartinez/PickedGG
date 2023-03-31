@@ -27,6 +27,7 @@ function setCardSize(size: string) {
   fixed xl:flex-col flex top-0 left-0
   justify-center
   xl:h-screen xl:w-16
+  md:(h-screen w-12 flex-col)
   h-16 w-screen
   bg-gray-900 shadow-2xl
 }

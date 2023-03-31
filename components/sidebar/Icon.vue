@@ -19,7 +19,8 @@ const iconPath = computed( () => "/" + props.fileName + ".svg" )
 .side-btn {
   @apply relative flex items-center justify-center
   w-12 h-12 p-1.5
-  xl:my-2 xl:mx-auto
+  md:(w-10 h-10 p-1.5 mx-1)
+  xl:(w-12 h-12 my-2 mx-auto)
   mx-2 my-2
   bg-red-800 hover:bg-green-300
   rounded-3xl hover:rounded

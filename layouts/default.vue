@@ -16,6 +16,7 @@
 <style scoped>
 .app-body-out {
     @apply fixed flex justify-center text-center
+    md:(top-0 left-12)
     xl:(top-0 left-0)
     top-16 left-0
     w-screen h-screen
