@@ -1,7 +1,11 @@
 import {card} from "composables/types/card";
 import { Record } from "pocketbase";
+import { CardImage } from "~~/.nuxt/components";
 
-
+type CardMap = {
+    id: string,
+    count: number
+}
 function makeCard(data: Record, cardPackID: number): card {
     return {
         record_id: data.id,
@@ -75,6 +79,62 @@ function filterForEquipment(cardData: Record[]) {
 }
 
 ////////////////////////////////////////////////////////////////////////////
+// COMMON CARD LIMIT
+////////////////////////////////////////////////////////////////////////////
+
+
+function checkIfMax(card_id: string, cardMap: CardMap[]) {
+    const idx = cardMap.findIndex(x => x.id === card_id)
+    if(cardMap.at(idx)!.count <= 3) {return false}
+    else return true
+}
+
+function IsEmpty(card_id: string, cardMap: CardMap[]) {
+    let idx
+    if(cardMap.length === 0)
+        return true
+    else if(cardMap.length > 0 && cardMap.findIndex(x => x.id === card_id) === -1)
+        return true
+    else return false
+}
+
+// function IsCardInMap(card_id: string, cardMap: CardMap[]) {
+ //   if (IsEmpty(card_id, cardMap))
+ //}
+
+function initializeCardmapEntry(card_id: string) {
+    useCardMap().value!.push({
+        id: card_id,
+        count: 0
+    })
+}
+
+function incrementCardmap(idx: number) {
+    const cardMap = useCardMap()
+    if(cardMap.value[idx])
+        cardMap.value[idx].count++
+    else
+        console.log("TRIED TO COUNT EMPTY MAP AT: ", cardMap.value[idx]);
+        
+}
+
+function checkMap(card_id: string, cardMap: CardMap[]) {
+
+ }
+/*
+    roll card id
+    check card id
+    get counter for card id
+    if counter <3
+        add card to pack
+    else
+        reroll card id
+*/
+////////////////////////////////////////////////////////////////////////////
+// COMMON CARD LIMIT END
+////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////
 // LAYER 2 METHODS
 ////////////////////////////////////////////////////////////////////////////
 function filterTypes(cardData: Record[], validClasses: string[]){
@@ -95,8 +155,34 @@ function randomCardNumber(cards: Record[]): number {
     return getRandomInt(cards.length, 0)
 }
 
-function getRandomCard(card_index: number, cards: Record[]): Record {
+function getRandomCard(cards: Record[]): Record {
+    let card_index = randomCardNumber(cards)
     let card = cards.at(card_index) as Record
+    const cardMap = useCardMap().value as CardMap[]
+
+    /*
+    check if empty 
+    TRUE -> 
+        initialize card entry in map
+        return card
+    FALSE ->
+        check if full
+        TRUE -> 
+            get new card index
+        FALSE ->
+            increment counter
+    return card
+    */
+    if(IsEmpty(card.id, cardMap)) {
+        initializeCardmapEntry(card.id)
+    } else {
+        do {
+            if(checkIfMax(card.id, cardMap)) {
+                card_index = randomCardNumber(cards)
+                card = cards.at(card_index) as Record
+            } else incrementCardmap(card_index)
+        } while(checkIfMax(card.id, cardMap))
+    }
     return card
 }
 
@@ -105,25 +191,19 @@ function getRandomCard(card_index: number, cards: Record[]): Record {
 ////////////////////////////////////////////////////////////////////////////
 function getCardT(classes: string[], cardData: Record[]): Record{
     let cards_by_type = filterByType(cardData, classes)
-    //function that gets a random number based on length of cards_by_type_rarity
-    let card_index = randomCardNumber(cards_by_type)
-    //function that uses random number to get the corresponding card from the list
-    let card = getRandomCard(card_index, cards_by_type)
+    let card = getRandomCard(cards_by_type)
     return card
-    //return the card
 }
 
 function getCardTs(cardData: Record[], classes: string[]) {
     const cards_by_types = filterTypes(cardData, classes)
-    return getRandomCard(randomCardNumber(cards_by_types), cards_by_types)
+    return getRandomCard(cards_by_types)
 }
 
 function getCardR(rarity: string, cardData: Record[]): Record{
     let cards_by_rarity = filterByRarity(rarity, cardData)
     //function that gets a random number based on length of cards_by_type_rarity
-    let card_index = randomCardNumber(cards_by_rarity)
-    //function that uses random number to get the corresponding card from the list
-    let card = getRandomCard(card_index, cards_by_rarity)
+    let card = getRandomCard(cards_by_rarity)
     return card
     //return the card
 }
@@ -132,9 +212,7 @@ function getCardR(rarity: string, cardData: Record[]): Record{
 function getCardTR(type: string[], rarity: string, cardData: Record[]): Record{
     let cards_by_type_rarity = filterByTypeAndRarity(type, rarity, cardData)
     //function that gets a random number based on length of cards_by_type_rarity
-    let card_index = randomCardNumber(cards_by_type_rarity)
-    //function that uses random number to get the corresponding card from the list
-    let card = getRandomCard(card_index, cards_by_type_rarity)
+    let card = getRandomCard(cards_by_type_rarity)
     return card
     //return the card
 }
@@ -142,15 +220,15 @@ function getCardTR(type: string[], rarity: string, cardData: Record[]): Record{
 function getEquipmentCard(cardData: Record[], rarity: string) {
     const cards_by_rarity = filterByRarity(rarity, cardData)
     const cards_by_equip = filterForEquipment(cards_by_rarity)
-    return getRandomCard(randomCardNumber(cards_by_equip), cards_by_equip)
+    return getRandomCard(cards_by_equip)
 }
 
 function getCardTypesAndRarity(cardData: Record[], validClasses: string[], rarity: string): Record{
     const cards_by_rarity = filterByRarity(rarity, cardData)
     const cards_by_types_rarity = filterTypes(cards_by_rarity, validClasses)
-    return getRandomCard(randomCardNumber(cards_by_types_rarity), cards_by_types_rarity)
+    return getRandomCard(cards_by_types_rarity)
 }
-function BuildCard(cardData: Record[], card_in_pack: number, rarity?: string, type?: string[]): Record {
+export function BuildCard(cardData: Record[], card_in_pack: number, rarity?: string, type?: string[]): Record {
 
     if(type && !rarity) return getCardT(type, cardData) as Record 
     else if(!type && rarity) return getCardR(rarity, cardData) as Record 
@@ -221,6 +299,7 @@ function getSlot11(cardData: Record[], classSets: classesAndOdds[], classOdds: c
 
 
 
+
 ////////////////////////////////////////////////////////////////////////////
 // LAYER 4 METHODS
 ////////////////////////////////////////////////////////////////////////////
@@ -286,20 +365,22 @@ const outsider_hybrids: classesAndOdds[] = [
 
 export const useBuildPack = function(): Record[] {
     const cardData = useState('card-data').value as Record[]
+    const cardmap = useCardMap().value as CardMap[]
+    
     let pack: Record[] = []
 
     let ninjaCount = 0
     let assassinCount = 0
     let rangerCount = 0
     pack.push(BuildCard(cardData, 0, "common", ["Generic"]))
-    pack.push(BuildCard(cardData,1, "common", ["Generic"]))
-    pack.push(BuildCard(cardData,2, "common", ["Generic"]))
-    pack.push(BuildCard(cardData,3, "common", ["Ninja"]))
-    pack.push(BuildCard(cardData,4, "common", ["Ranger"]))
-    pack.push(BuildCard(cardData,5, "common", ["Ranger"]))
-    pack.push(BuildCard(cardData,6, "common", ["Ninja"]))
-    pack.push(BuildCard(cardData,7, "common", ["Assassin"]))
-    pack.push(BuildCard(cardData,8, "common", ["Assassin"]))
+    pack.push(BuildCard(cardData, 1, "common", ["Generic"]))
+    pack.push(BuildCard(cardData, 2, "common", ["Generic"]))
+    pack.push(BuildCard(cardData, 3, "common", ["Ninja"]))
+    pack.push(BuildCard(cardData, 4, "common", ["Ranger"]))
+    pack.push(BuildCard(cardData, 5, "common", ["Ranger"]))
+    pack.push(BuildCard(cardData, 6, "common", ["Ninja"]))
+    pack.push(BuildCard(cardData, 7, "common", ["Assassin"]))
+    pack.push(BuildCard(cardData, 8, "common", ["Assassin"]))
     const {classes: slot10_classes, rarity: slot10_rarity} = getHybrids(outsider_hybrids, slot10odds, 0)
     pack.push(getCardTypesAndRarity(cardData, slot10_classes, slot10_rarity))
     pack.push(getSlot11(cardData, outsider_hybrids, slot11odds, 0))

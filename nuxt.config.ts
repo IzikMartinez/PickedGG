@@ -2,8 +2,8 @@
 export default defineNuxtConfig({
     modules: [
         'nuxt-windicss',
-        '@nuxtjs/supabase',
         '@nuxt/devtools',
+        'nuxt-vitest',
         [
         '@pinia/nuxt',
             { 

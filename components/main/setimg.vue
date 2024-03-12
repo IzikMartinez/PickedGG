@@ -31,7 +31,8 @@
     @apply xl:(w-230 h-80) w-90 h-40 p-6 bg-out cursor-pointer rounded-3xl
 }
 .out-chosen {
-    @apply xl:(w-230 h-80) w-90 h-40 p-6 bg-out cursor-pointer 
+    @apply xl:(w-230 h-80) w-90 h-40 p-6 bg-out cursor-pointer
+    transition-all duration-75 
 }
 .upr {
     @apply xl:(w-230 h-80) w-90 h-40 mx-2 my-4 p-6 rounded-3xl bg-upr cursor-pointer 

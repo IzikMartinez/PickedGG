@@ -32,9 +32,13 @@ const store = usePickStore()
 const timerStore = useTimerStore()
 const roundIndex = useRoundIndex().value
 
+const currentRound = useRoundStore().value as Record[][]
+
 const cardBoxClass = computed(()=> 'cardbox-' + useCardBoxClass().value)
 const current_pack_index = computed(()=>store.getPickIndex % PLAYER_NUM)
-const current_pack = computed(()=> { return thisdraft.getRound(roundIndex)?.getPack(current_pack_index.value)})
+const current_pack = computed(()=> { return currentRound[current_pack_index.value]})
+console.log(current_pack.value)
+//const current_pack = computed(()=> { return thisdraft.getRound(roundIndex)?.getPack(current_pack_index.value)})
 //const pick_number = computed(()=> (store.getPickIndex % PACK_SIZE))
 const picker: Picker = new Picker(thisdraft, roundIndex, current_pack_index.value)
 

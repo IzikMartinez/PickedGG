@@ -106,7 +106,7 @@ function addCardToDeck(card: Record) {
 <style>
 .blade {
  @apply fixed flex 
- w-40 xl:w-80 md:w-60
+ w-40 xl:w-80 md:w-50
  h-screen right-0 
  xl:top-14 md:top-10 top-28 
  bg-blue-gray-600 hover:bg-blue-gray-700 

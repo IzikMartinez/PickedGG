@@ -17,6 +17,12 @@ const styleTB = computed(()=> props.btnText === "draft" ? 'top' : 'btm')
 </script>
 
 <style>
+.not-picked {
+    @apply 
+    flex text-5xl font-display xl:w-230 w-90 py-4 text-center 
+    justify-center text-white rounded-t-3xl items-center cursor-pointer 
+}
+
 .top { @apply flex text-5xl font-display xl:w-230 w-90 py-4 text-center 
     justify-center text-white rounded-t-3xl items-center cursor-pointer 
     transform

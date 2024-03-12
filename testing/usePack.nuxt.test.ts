@@ -1,9 +1,25 @@
 import { it, expect} from 'vitest'
-import {useBuildPack, getInvalidClasses, getRandomRarity} from 'composables/useBuildPack'
+import {useBuildPack, BuildCard} from 'composables/useBuildPack'
 import { Record } from 'pocketbase';
 
+type card_counter = {
+    id: string,
+    count: number
+}
 
+import PocketBase from 'pocketbase';
+const pb = new PocketBase('https://pack1pick1.com');
+
+const useRecords = pb.collection('outsiders').getFullList(200 /* batch size */, {
+        sort: '-created',
+})
 it("PocketBase should have some records", () => {
+
+    let blankMap = [] as card_counter[]
+    const cardData = useState('card-data').value as Record[]
+    BuildCard(cardData, 0, 'common', ['Generic']) 
+})
+    /*
     interface classOdds {
         class_name: string;
         class_odds: number;
@@ -26,3 +42,4 @@ it("PocketBase should have some records", () => {
     console.log(getInvalidClasses(useOutClasses, ["Equipment"]))
     console.log(getRandomRarity(slot11odds, 0))
 })
+*/

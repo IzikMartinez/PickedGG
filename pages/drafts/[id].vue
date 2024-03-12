@@ -27,6 +27,9 @@ const {data, pending, error} = await useAsyncData('cards',
 const cardDataStore = useState('card-data', ()=> data)
 const roundIndex = useRoundIndex()
 
+
+console.log(useRoundStore().value);
+
 definePageMeta({ layout: "default"})
 
 store.$subscribe( (mutation, state)=> {
@@ -52,6 +55,8 @@ timerStore.$subscribe((mutation, state)=> {
 const animationClass = ref("cards-center")
 const cardboxRef = ref<null | { timeoutPick: ()=> null }>(null)
 
+
+
 async function onCardEvent(eventType: string) {
   if(eventType === "timeout"){
     cardboxRef.value?.timeoutPick()
@@ -60,6 +65,11 @@ async function onCardEvent(eventType: string) {
   }
   await styles.screenWipe(roundIndex.value % 2 === 0 ? true : false)
 }
+
+onMounted(()=> {
+  useBuildBox()
+  useBuildRound()
+})
 
 </script>
 
